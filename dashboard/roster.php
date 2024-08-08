@@ -11,7 +11,7 @@ if ($_SESSION['userrole'] == 'staff' || $_SESSION['userrole'] == 'bowler' || $_S
     header("Location: " . $base_url . "/dashboard/home.php");
 }
 
-$reset = $_GET['reset'];
+$reset = $_GET['reset'] ?? null;
 
 if ($reset == 'y') {
     unset($_SESSION['rosterSelected']);
@@ -22,7 +22,7 @@ try {
     $database = new Connection();
     $db = $database->openConnection();
 
-    if ($_SESSION['rosterSelected']) {
+    if (isset($_SESSION['rosterSelected'])) {
         $teamName = $_SESSION['rosterSelected'];
 
         $sql = $db->prepare("SELECT * FROM `bowlers` WHERE `team` = :teamName AND `active` > 0");
@@ -31,7 +31,7 @@ try {
         $teamDeets = $sql->fetchAll();
     }
 
-    if ($_SESSION['divisionSelected']) {
+    if (isset($_SESSION['divisionSelected'])) {
         $divisionSelected = $_SESSION['divisionSelected'];
 
         $sql = $db->prepare("SELECT * FROM `teams` WHERE `division` = :divisionSelected  ORDER BY `teamname` ASC");

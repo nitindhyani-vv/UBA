@@ -39,7 +39,7 @@
 
     include 'inc/header.php';
 
-    if ($_SESSION['eventData'] == true) {
+    if (isset($_SESSION['eventData']) == true) {
         $resetBtn = '<a href="resetInput.php?page=event" id="resetInputs">Reset Input Data</a>';
     }
 

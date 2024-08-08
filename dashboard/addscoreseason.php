@@ -22,42 +22,34 @@
     $title = 'Add Season Scores';
 
     include 'inc/header.php';
-
-    if($_SESSION['scoreAddedSeason'] == true) {
+    // $_SESSION['scoreAddedSeason'] ?? null;
+    if( isset($_SESSION['scoreAddedSeason']) == true) {
         $msg = '<p class="successMsg">The scores were added.</p>';
     }
 
-    if ($_SESSION['seasonData'] == true) {
+    if (isset($_SESSION['seasonData']) == true) {
         $resetBtn = '<a href="resetInput.php?page=season" id="resetInputs">Reset Input Data</a>';
     }
 
-    $_SESSION['seasonYear'];
-    $_SESSION['seasonDate'];
-    $_SESSION['seasonTourStop'];
-    $_SESSION['seasonLocation'];
-    $_SESSION['seasonTeam'];
+    $_SESSION['seasonYear'] ?? null;
+    $_SESSION['seasonDate'] ?? null;
+    $_SESSION['seasonTourStop'] ?? null;
+    $_SESSION['seasonLocation'] ?? null;
+    $_SESSION['seasonTeam'] ?? null;
 
 ?>
 
     <div class="addscore">
         <div class="col-12">
             <h4>Add Season Scores</h4>
-            <?php echo $msg; ?>
+            <?php echo $msg ?? null; ?>
             <form action="process/scoreAdded.php" method="POST">
-                <!-- <div class="form-group">
-                    <label for="type">Type:</label>
-                    <select name="type" id="type" required>
-                        <option value="-" disabled selected>Select</option>
-                        <option value="season">Season</option>
-                    </select>
-                </div> -->
-
                 <div class="form-group">
                     <label for="year">Year:</label>
                     <select name="year" id="year" required>
                         <option value="-" disabled selected>Select</option>
                         <?php
-                            $val = 17;
+                            $val = 24;
                             for ($i=0; $i < 7; $i++) { 
                                 $yearVal = '20'.$val;
                                 $finalVal = $yearVal . '/'. ($val+1);
@@ -70,7 +62,7 @@
                                     echo '<option value="'.$finalVal.'">'.$finalVal.'</option>';
                                 }
                                 
-                                $val++;
+                                $val--;
                             }
                         ?>
                         
@@ -81,7 +73,7 @@
                     <label for="datepicker">Date:</label>
                     <input type="text" id="datepicker" name="datepicker" required
                     <?php
-                        if ($_SESSION['seasonData'] == true) {
+                        if (isset($_SESSION['seasonData']) == true) {
                             echo 'value="'.$_SESSION['seasonDate'].'"';
                         }
                     ?>
@@ -92,7 +84,7 @@
                     <label for="tourstop">Tour Stop:</label>
                     <input type="text" id="tourstop" name="tourstop" required
                     <?php
-                        if ($_SESSION['seasonData'] == true) {
+                        if (isset($_SESSION['seasonData'])== true) {
                             echo 'value="'.$_SESSION['seasonTourStop'].'"';
                         }
                     ?>
@@ -103,7 +95,7 @@
                     <label for="location">Event location:</label>
                     <input type="text" id="location" name="location" required
                     <?php
-                        if ($_SESSION['seasonData'] == true) {
+                        if (isset($_SESSION['seasonData']) == true) {
                             echo 'value="'.$_SESSION['seasonLocation'].'"';
                         }
                     ?>
@@ -123,7 +115,7 @@
                     </select>
                 </div>
 
-                <?php echo $resetBtn; ?>
+                <?php echo $resetBtn??null; ?>
 
                 <hr>
 

@@ -29,7 +29,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     
     <?php
-        if ($addscore == true) {
+   
+        if (isset($addscore) == true) {
+            echo 'yesss';
     ?>
         <script src="js/addscore.js"></script>;
     <?php
@@ -37,7 +39,7 @@
     ?>
 
     <?php
-        if ($registerevent == true) {
+        if (isset($registerevent) == true) {
     ?>
         <script src="js/eventregister.js"></script>;
     <?php
