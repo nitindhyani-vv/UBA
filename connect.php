@@ -2,10 +2,10 @@
 
 Class Connection {
 
-    private $server = "mysql:host=db753285775.db.1and1.com;dbname=db753285775";
+    private $server = "mysql:host=localhost;dbname=db753285775";
 
-    private $user = "dbo753285775";
-    private $pass = "PinsRise.1098";
+    private $user = "root";
+    private $pass = "";
 
     private $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC);
 

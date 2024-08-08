@@ -1,1 +1,1 @@
-<?php $base_url= 'https://ubaaverages.com'; ?>
+<?php $base_url = 'http://localhost/UBA'; ?>
