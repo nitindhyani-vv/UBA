@@ -1,0 +1,1 @@
+<?php $base_url= 'https://ubaaverages.com'; ?>
