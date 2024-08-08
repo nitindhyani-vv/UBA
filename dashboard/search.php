@@ -31,6 +31,7 @@
     } catch (PDOException $e) {
         echo "There was some problem with the connection: " . $e->getMessage();
     }
+    $nickname1='';
 ?>
 
 
@@ -253,7 +254,6 @@
                     </div>
                     <?php
                             $i++;
-                            $nickname1='';
                             }
                         } elseif($bowlerTeam != '' ) {
                             $j = 1;

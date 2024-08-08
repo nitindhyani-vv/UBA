@@ -1,3 +1,4 @@
+<?php error_reporting(E_ALL & ~E_NOTICE);  ?>
 <!DOCTYPE html>
 <html class="fontawesome-i2svg-active fontawesome-i2svg-complete gr__bootstrapious_com" wtx-context="7612EC81-ACF6-40F0-8E26-828B9EA6EC17">
 
@@ -7,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>
-        <?php echo $title; ?> | UBA</title>
+        <?php  echo $title; ?> | UBA</title>
 
     <!-- Bootstrap CSS CDN -->
     <style type="text/css">
