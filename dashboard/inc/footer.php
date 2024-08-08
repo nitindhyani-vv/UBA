@@ -37,7 +37,7 @@
     ?>
 
     <?php
-        if ($registerevent == true) {
+        if (isset($registerevent) == true) {
     ?>
         <script src="js/eventregister.js"></script>;
     <?php
