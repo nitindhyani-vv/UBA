@@ -60,8 +60,9 @@
                             <select name="userrole" id="userrole" required>
                                 <option value="-" selected disabled>-</option>
                                 <option value="admin">Admin</option>
-                                <option value="staff">Staff</option>
+                                <!-- <option value="staff">Staff</option> -->
                                 <option value="eventstaff">Event Staff</option>
+                                <option value="districtmanager">District Manager</option>
                             </select>
                         </div>
 

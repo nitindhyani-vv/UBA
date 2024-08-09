@@ -55,7 +55,7 @@
                             <td><?php echo $i; ?></td>
                             <td><?php echo $user['name']; ?></td>
                             <td style="flex-grow: 2;"><?php echo $user['email']; ?></td>
-                            <td><?php echo ucfirst($user['userrole']); ?></td>
+                            <td><?php if($user['userrole'] === 'districtmanager'){echo 'District Manager';}else{ echo ucfirst($user['userrole']); } ?></td>
                             <td><a href="editUser.php?id=<?php echo $user['id']; ?>"><i class="fas fa-edit"></i></a></td>
                         </tr>
                     <?php

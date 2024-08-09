@@ -575,11 +575,11 @@
 
 <body data-gr-c-s-loaded="true">
 
-    <div id="loaderbg">
+    <!-- <div id="loaderbg">
 
         <div class="loader">Loading...</div>
         <img src="<?=$base_url;?>/images/UBA_logo.png">
-    </div>
+    </div> -->
 
     <div class="wrapper">
         <!-- Sidebar  -->
@@ -604,7 +604,7 @@
                         </li>
 
                         <?php
-                            if ($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] == 'staff') {
+                            if ($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] == 'admin') {
                         ?>
                         <li>
                             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Add

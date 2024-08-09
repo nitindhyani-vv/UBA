@@ -3,7 +3,7 @@
     include_once '../session.php';
     include_once '../connect.php';
 
-    if($_SESSION['userrole'] == 'staff' || $_SESSION['userrole'] == 'bowler' || $_SESSION['userrole'] == 'eventstaff' || $_SESSION['userrole'] == 'president' || $_SESSION['userrole'] == 'owner' || $_SESSION['userrole'] == 'secretary'){
+    if($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] == 'bowler' || $_SESSION['userrole'] == 'eventstaff' || $_SESSION['userrole'] == 'president' || $_SESSION['userrole'] == 'owner' || $_SESSION['userrole'] == 'secretary'){
         header("Location: ".$base_url."/dashboard/home.php");
     }
 

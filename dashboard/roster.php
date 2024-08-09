@@ -7,7 +7,7 @@ include_once '../connect.php';
 //     header("Location: /dashboard/home.php");
 // }
 
-if ($_SESSION['userrole'] == 'staff' || $_SESSION['userrole'] == 'bowler' || $_SESSION['userrole'] == 'president' || $_SESSION['userrole'] == 'owner' || $_SESSION['userrole'] == 'secretary') {
+if ($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] == 'bowler' || $_SESSION['userrole'] == 'president' || $_SESSION['userrole'] == 'owner' || $_SESSION['userrole'] == 'secretary') {
     header("Location: " . $base_url . "/dashboard/home.php");
 }
 

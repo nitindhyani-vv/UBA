@@ -72,7 +72,7 @@
 
         
 
-        if ($_SESSION['userrole'] != 'admin' || $_SESSION['userrole'] != 'staff') {
+        if ($_SESSION['userrole'] != 'admin' || $_SESSION['userrole'] != 'admin') {
             $teamName = $_SESSION['team'];
             
             $sql = $db->prepare("SELECT * FROM `teams` WHERE `teamname` = :teamName ORDER BY `teamname` ASC");
@@ -636,7 +636,7 @@ button.btn {
                 }
             ?>
             <?php
-                if ($_SESSION['userrole'] != 'admin' || $_SESSION['userrole'] != 'staff') {
+                if ($_SESSION['userrole'] != 'admin' || $_SESSION['userrole'] != 'admin') {
             ?>
             <div class="averages">
                 <span>UBA:<b>

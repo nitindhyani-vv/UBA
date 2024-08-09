@@ -57,20 +57,9 @@
 
                         <div class="form-group">
                             <label for="userrole">User Role</label>
-                            <select name="userrole" id="userrole">
-                                <?php
-                                    if ($dataFetched['userrole'] == 'admin') {
-                                ?>
-                                    <option value="admin" selected>Admin</option>
-                                    <option value="staff">Staff</option>
-                                <?php
-                                    } else {
-                                ?>
-                                    <option value="admin">Admin</option>
-                                    <option value="staff" selected>Staff</option>
-                                <?php
-                                    }
-                                ?>
+                            <select name="userrole" id="userrole" >
+                            <option value="admin" <?php echo ($dataFetched['userrole'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
+                            <option value="districtmanager" <?php echo ($dataFetched['userrole'] == 'districtmanager') ? 'selected' : ''; ?>>District Manager</option>
                             </select>
                         </div>
 

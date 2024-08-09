@@ -14,7 +14,7 @@
 
         $verified = 0;
 
-        if ($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] == 'staff') {
+        if ($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] == 'admin') {
             $sql = "UPDATE users 
             SET `email` = :newEmail
             WHERE `email` = :email";

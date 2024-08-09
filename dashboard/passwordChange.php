@@ -13,7 +13,7 @@
         $database = new Connection();
         $db = $database->openConnection();
 
-        if ($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] == 'staff') {
+        if ($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] == 'admin') {
             $sql = $db->prepare("SELECT * FROM `users` WHERE `email` = '$email'");
             $sql->execute();
             $dataFetched = $sql->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@
 
                 $hash = password_hash($newpassword, PASSWORD_DEFAULT);
 
-                if ($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] == 'staff') {
+                if ($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] == 'admin') {
                     $sql = "UPDATE users 
                     SET `password` = :newpassword
                     WHERE email = :email";
