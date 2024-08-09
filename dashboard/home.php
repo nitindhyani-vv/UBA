@@ -18,7 +18,6 @@
         $db = $database->openConnection();
 
         if ($_SESSION['userrole'] == 'admin' || $_SESSION['userrole'] != 'districtmanager') {
-            echo 'under-ADMIN';
 
             $approved = 0;
 
@@ -54,7 +53,6 @@
         
        
         if ($_SESSION['userrole'] != 'admin' || $_SESSION['userrole'] != 'admin' || $_SESSION['userrole'] != 'districtmanager') {
-            echo 'under-otherstaf';
             $teamName = $_SESSION['team'];
             
             $sql = $db->prepare("SELECT * FROM `teams` WHERE `teamname` = :teamName ORDER BY `teamname` ASC");
@@ -83,9 +81,7 @@
             $dataFetchedEvents = $sql->fetchAll();
     
             if($seasonTourYearFlag == null){
-                echo 'yesss';
-                echo $bowlerUBAID ;
-
+               
                 $currentYear =date("Y"); 
                 $nextYear= date("Y" ,strtotime("+1 year"));
                 $year = substr( $nextYear, -2);
@@ -96,11 +92,8 @@
                 $sql = $db->prepare("SELECT * FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerUBAID' AND eventdate ='9-9-20'");
                 echo 'nooooo';
             }
-            // die();
             $sql->execute();
             $dataFetchedSeasonTour = $sql->fetchAll();
-            echo count($dataFetchedSeasonTour);
-            // die();
             
 
             $sql = $db->prepare("SELECT distinct(year) as SeasonTourYear FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerUBAID'");
