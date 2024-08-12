@@ -12,7 +12,7 @@
         $bowlerName = $_POST['bowlerName'];
         $nickname1 = $_POST['nickname1'];
         $teamName = $_POST['teamName'];
-        $bstatus = $_POST['bstatus'];
+        $bstatus = $_POST['bstatus'] ?? null;
         $officeHeld = $_POST['officeHeld'];
         $enterAvg = $_POST['enterAvg'];
         $sanction = $_POST['sanction'];
@@ -24,7 +24,7 @@
             $sql = $db->prepare("SELECT * FROM `bowlers` WHERE `id` = '$bowlerDbID'");
             $sql->execute();
             $dataFetched = $sql->fetch(PDO::FETCH_ASSOC);
-            $teamName = $dataFetched['team'];
+            // $teamName = $dataFetched['team'];
 
         if ($officeHeld == 'President') {
             $president = 1;
@@ -63,7 +63,7 @@
                 $dataFetched = $sql->fetch(PDO::FETCH_ASSOC);
                 
                 $oldbowlerUBAID = $dataFetched['bowlerid'];
-                $teamName = $dataFetched['team'];
+                // $teamName = $dataFetched['team'];
 
                 if($oldbowlerUBAID !== $updatedbowlerID) {
 
@@ -297,6 +297,17 @@
                             }
                         }
 
+                        // update bowlerTeamName
+                        $updateTeamName = "UPDATE bowlerdataseason 
+                            SET team = :teamName
+                            WHERE bowlerid = :bowlerUBAID";
+
+                        $statement = $db->prepare($updateTeamName); 
+                        $statement->bindParam(':teamName', $teamName);
+                        $statement->bindParam(':bowlerUBAID', $updatedbowlerID);
+                        $statement->execute();  
+
+
                         $sql = "UPDATE bowlerdata 
                             SET `bowlerid` = :bowlerName
                             WHERE bowlerid = :bowlerUBAID";
@@ -315,7 +326,7 @@
                         $stmt->bindParam(':bowlerUBAID', $oldbowlerUBAID);
                         $stmt->execute(); 
 
-                    } else {                        
+                    } else {  
 
                         $sql = "UPDATE bowlers 
                                 SET `bowlerid` = :bowlerUBAID,

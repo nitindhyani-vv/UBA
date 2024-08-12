@@ -82,7 +82,7 @@
                             <select name="officeHeld" id="officeHeld">
                                 <option value="-" selected>-</option>
                                 <?php
-                                    $officePosList = ['Owner','President','Vice President','Captain','Secretary','Treasurer'];
+                                    $officePosList = ['Owner','President','Secretary'];
                                     for ($i=0; $i < sizeof($officePosList); $i++) { 
                                 ?>
                                 <option value="<?php echo $officePosList[$i];?>"><?php echo $officePosList[$i];?></option>

@@ -176,7 +176,7 @@ if (isset($_SESSION['success'])) {
                                             //$preYear=date("Y",strtotime("-1 year"));
                                             $preYear = date("Y", strtotime("-1 year"));
                                             $year = substr($currentYear, -2);
-                                            $avrgseason = $db->prepare("SELECT * FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerID' AND YEAR(eventdate) BETWEEN '2023' AND '2024' AND year='2023/24' ORDER BY `eventdate` DESC");
+                                            $avrgseason = $db->prepare("SELECT * FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerID' AND YEAR(eventdate) BETWEEN '2024' AND '2025' AND year='2024/25' ORDER BY `eventdate` DESC limit 50 ");
                                             $avrgseason->execute();
                                             $avrgseasonAll = $avrgseason->fetchAll();
 
@@ -299,7 +299,7 @@ if (isset($_SESSION['success'])) {
                                             $preYear = date("Y", strtotime("-1 year"));
 
                                             // $year = substr($currentYear, -2);
-                                            $avrgseason = $db->prepare("SELECT * FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerID' AND YEAR(eventdate) BETWEEN '2023' AND '2024' AND year='2023/24' ORDER BY `eventdate` DESC");
+                                            $avrgseason = $db->prepare("SELECT * FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerID' AND YEAR(eventdate) BETWEEN '2024' AND '2025' AND year='2024/25' ORDER BY `eventdate` DESC limit 50");
                                             $avrgseason->execute();
                                             $avrgseasonAll = $avrgseason->fetchAll();
 
