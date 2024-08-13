@@ -61,7 +61,7 @@
                                 <option value="-" selected disabled>-</option>
                                 <option value="admin">Admin</option>
                                 <option value="staff">Staff</option>
-                                <option value="eventstaff">Event Staff</option>
+                                <!-- <option value="eventstaff">Event Staff</option> -->
                             </select>
                         </div>
 

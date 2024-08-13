@@ -610,6 +610,7 @@
                             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Add
                                 Score</a>
                             <ul class="collapse list-unstyled" id="pageSubmenu">
+                                <?php if($_SESSION['userrole'] == 'admin') {?>
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/addEvent.php">Add Event</a>
                                 </li>
@@ -625,23 +626,29 @@
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/editEventName.php">Change Event Name</a>
                                 </li>
+                                <?php }?>
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/uploadscore.php">Upload Score Sheet</a>
                                 </li>
+                                <?php if($_SESSION['userrole'] == 'admin') {?>
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/scoreuploadformat.php">Format Sheet - Upload Scores</a>
                                 </li>
+                                <?php } ?>
                             </ul>
                         </li>
                         <li>
                             <a href="#bowlerMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Bowlers</a>
                             <ul class="collapse list-unstyled" id="bowlerMenu">
+                                <?php if($_SESSION['userrole'] == 'admin') {?>
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/addBowler.php">Add Bowler</a>
                                 </li>
+                                <?php } ?>
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/roster.php">Rosters</a>
                                 </li>
+                                <?php if($_SESSION['userrole'] == 'admin') {?>
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/submittedroster.php">Rosters Submitted</a>
                                 </li>
@@ -651,31 +658,38 @@
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/bowlerDataExport.php">Bowlers Data</a>
                                 </li>
+                                <?php } ?>
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/rsbowler.php">Released Bowlers</a>
                                 </li>
+                                <?php if($_SESSION['userrole'] == 'admin') {?>
+
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/updateBowlers.php">Update Bowlers - Upload</a>
                                 </li>
+                                <?php } ?>
                             </ul>
                         </li>
                         <li>
                             <a href="#teamData" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Team
                                 Data</a>
                             <ul class="collapse list-unstyled" id="teamData">
-
+                                <?php if($_SESSION['userrole'] == 'admin') {?>
+                                
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/addTeam.php">Add Team</a>
                                 </li>
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/editTeam.php">Edit Team</a>
                                 </li>
+                                <?php } ?>
                                 <li>
                                     <a href="<?=$base_url;?>/dashboard/teamofficials.php">Presidents & Owners</a>
                                 </li>
                                 
                             </ul>
                         </li>
+                        <?php if($_SESSION['userrole'] == 'admin') {?>
                         <li>
                             <a href="#scoreEntries" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Scores</a>
                             <ul class="collapse list-unstyled" id="scoreEntries">
@@ -689,6 +703,7 @@
 
                             </ul>
                         </li>
+                        
                         <li>
                             <a href="<?=$base_url;?>/dashboard/calculateAverages.php">Averages</a>
                         </li>
@@ -698,7 +713,8 @@
                         <li>
                             <a href="<?=$base_url;?>/dashboard/users.php">Users</a>
                         </li>
-                        <?php
+                        <?php 
+                        }
                     };
                 ?>
 

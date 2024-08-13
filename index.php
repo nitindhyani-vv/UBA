@@ -47,7 +47,8 @@
                                     <div class="form-group select">
                                         <select name="utype" id="utype">
                                             <option value="bowler" selected> Bowler</option>
-                                            <option value="staff">Admin</option>
+                                            <option value="staff">Staff</option>
+                                            <option value="admin">Admin</option>
                                         </select>
                                     </div>
                                     <div class="form-group">

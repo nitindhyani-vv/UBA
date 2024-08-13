@@ -7,7 +7,7 @@ include_once '../connect.php';
 //     header("Location: /dashboard/home.php");
 // }
 
-if ($_SESSION['userrole'] == 'staff' || $_SESSION['userrole'] == 'bowler' || $_SESSION['userrole'] == 'president' || $_SESSION['userrole'] == 'owner' || $_SESSION['userrole'] == 'secretary') {
+if ($_SESSION['userrole'] == 'bowler' || $_SESSION['userrole'] == 'president' || $_SESSION['userrole'] == 'owner' || $_SESSION['userrole'] == 'secretary') {
     header("Location: " . $base_url . "/dashboard/home.php");
 }
 
@@ -165,7 +165,9 @@ if (isset($_SESSION['success'])) {
                                         <th>Entering Avg</th>
                                         <th>UBA Avg</th>
                                         <th>ST Avg</th>
+                                        <?php if($_SESSION['userrole'] == 'admin') { ?>
                                         <th>Edit</th>
+                                        <?php } ?>
                                     </thead>
                                     <tbody>
                                         <?php
@@ -252,8 +254,11 @@ if (isset($_SESSION['success'])) {
                                                 <td>
                                                     <?php echo $seasontourAvg; ?>
                                                 </td>
+                                                <?php if($_SESSION['userrole'] == 'admin') { ?>
+
                                                 <td><a href="editBowler.php?id=<?php echo $bowlers['id']; ?>"><i
                                                             class="fas fa-pen-square"></i></a></td>
+                                                <?php } ?>
                                             </tr>
                                             <?php
                                             $i++;
@@ -287,7 +292,9 @@ if (isset($_SESSION['success'])) {
                                         <th>Entering Avg</th>
                                         <th>UBA Avg</th>
                                         <th>ST Avg</th>
+                                        <?php if($_SESSION['userrole'] == 'admin') { ?>
                                         <th>Edit</th>
+                                        <?php } ?>
                                     </thead>
                                     <tbody>
                                         <?php
@@ -376,8 +383,11 @@ if (isset($_SESSION['success'])) {
                                                 <td>
                                                     <?php echo $seasontourAvg; ?>
                                                 </td>
+                                                <?php if($_SESSION['userrole'] == 'admin') { ?>
+                                            
                                                 <td><a href="editBowler.php?id=<?php echo $bowlers['id']; ?>"><i
                                                             class="fas fa-pen-square"></i></a></td>
+                                                <?php } ?>
                                             </tr>
                                             <?php
                                             $i++;

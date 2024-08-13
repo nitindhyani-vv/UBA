@@ -3,9 +3,15 @@
     include_once '../session.php';
     include_once '../connect.php';
 
-    if($_SESSION['userrole'] != 'admin'){
+    $userroleArray = ['admin','staff'];
+
+    if(in_array($userroleArray,$_SESSION['userrole'])){
         header("Location: /dashboard/home.php");
     }
+
+    // if($_SESSION['userrole'] != 'staff'){
+    //     header("Location: /dashboard/home.php");
+    // }
 
     require_once('phpspreadsheet/vendor/autoload.php');
  
