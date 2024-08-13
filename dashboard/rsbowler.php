@@ -3,8 +3,10 @@
     include_once '../session.php';
     include_once '../connect.php';
 
-    if($_SESSION['userrole'] != 'admin'){
-        header("Location: ".$base_url."/dashboard/home.php");
+    $userroleArray = ['admin','staff'];
+
+    if(in_array($userroleArray,$_SESSION['userrole'])){
+        header("Location: /dashboard/home.php");
     }
 
     try {
@@ -58,7 +60,9 @@
                                 <th>Removed by</th>
                                 <th>Current Status</th>
                                 <th>Eligible Date</th>
+                                <?php if($_SESSION['userrole'] == 'admin') {?>
                                 <th>Reinstate</th>
+                                <?php } ?>
                             </thead>
                             <tbody>
                             <?php
@@ -74,6 +78,8 @@
                                     <td><?php echo $bowlers['removedby']; ?></td>
                                     <td><?php echo $bowlers['currentstatus']; ?></td>
                                     <td><?php echo $bowlers['eligibledate']; ?></td>
+                                    <?php if($_SESSION['userrole'] == 'admin') {?>
+
                                     <td>
                                     <?php
                                         if ($bowlers['currentstatus'] == 'Suspended' || $bowlers['currentstatus'] == 'Released') {
@@ -85,6 +91,8 @@
                                         }
                                     ?>
                                     </td>
+                                    <?php } ?>
+
                                 </tr>
                             <?php
                                 $i++;

@@ -31,7 +31,7 @@ include_once 'baseurl.php';
             $database = new Connection();
             $db = $database->openConnection();
 
-            if ($type == 'staff') {
+            if ($type == 'staff' || $type == 'admin' ) {
                 $sql = $db->prepare("SELECT * FROM `users` WHERE `email` = '$email'");
                 $sql->execute();
                 $dataFetched = $sql->fetch(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ include_once 'baseurl.php';
 
             if($dataFetched) {
                 
-                if ($type == 'staff') {
+                if ($type == 'staff' || $type == 'admin') {
                     $hash = $dataFetched['password'];
                     $userrole = $dataFetched['userrole'];
                 } else {
@@ -94,7 +94,7 @@ include_once 'baseurl.php';
                         }
                     }
 
-                    if ($type == 'staff') {
+                    if ($type == 'staff' || $type == 'admin') {
                         header("Location: ".$base_url."/dashboard/home.php");
                     } else {
                         header("Location: ".$base_url."/dashboard/home.php");
