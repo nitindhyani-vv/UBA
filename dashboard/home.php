@@ -194,6 +194,14 @@
 button.btn {
     font-size: 15px;
 }
+.dataTables_length label{
+    display:none !important;
+}
+
+.dataTables_length label .pagination-drop {
+    margin-right: 9px !important;
+    height: 40px !important;
+}
 </style>
 
 <!-- bootsrap modal -->
@@ -255,7 +263,7 @@ button.btn {
             <?php
                 if ($_SESSION['userrole'] == 'admin') {
                     if ($nonactivebowlers) {
-            ?>
+        ?>
 
             <h4 class="claimRequests">Bowlers added by Team President/Owner</h4>
             <table id="nonactive_table_home" class="display">

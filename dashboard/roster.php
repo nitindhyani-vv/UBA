@@ -120,21 +120,17 @@ if (isset($_SESSION['success'])) {
     $msg = '';
 }
 
-
-
 ?>
 
 <div class="users roster">
     <?php echo $msg; ?>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-
-                <?php
-                if (isset($_POST['teamSelected']) || isset($_SESSION['rosterSelected']) || isset($_POST['divisionSelected']) || isset($_SESSION['divisionSelected'])) {
-
-                    ?>
+                <?php 
+                    if (isset($_POST['teamSelected']) || isset($_SESSION['rosterSelected']) || isset($_POST['divisionSelected']) || isset($_SESSION['divisionSelected'])) {
+                ?>
 
                     <div class="row">
                         <div class="col-12">
@@ -147,13 +143,11 @@ if (isset($_SESSION['success'])) {
                     <?php
                     if (isset($_POST['teamSelected']) || isset($_SESSION['rosterSelected'])) {
                         ?>
-                        <h4>Team Roster: '
-                            <?php echo $teamName; ?>'
+                        <h4>Team Roster: '<?php echo $teamName; ?>'
                         </h4>
                         <hr>
                         <div class="row">
-
-                            <div class="col-12">
+                            <div class="col-12 uba-table">
                                 <table id="teamRoster">
                                     <thead>
                                         <th>No.</th>
@@ -169,103 +163,6 @@ if (isset($_SESSION['success'])) {
                                         <th>Edit</th>
                                         <?php } ?>
                                     </thead>
-                                    <tbody>
-                                        <?php
-                                        $i = 1;
-                                        foreach ($teamDeets as $bowlers) {
-                                            $bowlerID = $bowlers['bowlerid'];
-                                            $currentYear = date("Y");
-                                            //$preYear=date("Y",strtotime("-1 year"));
-                                            $preYear = date("Y", strtotime("-1 year"));
-                                            $year = substr($currentYear, -2);
-                                            $avrgseason = $db->prepare("SELECT * FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerID' AND YEAR(eventdate) BETWEEN '2024' AND '2025' AND year='2024/25' ORDER BY `eventdate` DESC limit 50 ");
-                                            $avrgseason->execute();
-                                            $avrgseasonAll = $avrgseason->fetchAll();
-
-                                            $arrayCount = array();
-                                            $gamelenth = array();
-                                            $game1 = 0;
-                                            $game2 = 0;
-                                            $game3 = 0;
-                                            $addAll = 0;
-                                            $avrgss = 0;
-                                            foreach ($avrgseasonAll as $seasonVal) {
-                                                $checkDate = new DateTime($seasonVal['eventdate']);
-                                                $checkDateFormatted = $checkDate->format('Y-m-d');
-
-                                                // $currentYear = date('Y'); $nextYear = date('Y') + 1;
-                                                $sectValue1 = new DateTime("2023-09-01");
-                                                $sectValue1Formatted = $sectValue1->format('Y-m-d');
-
-                                                $sectValue2 = new DateTime("2024-09-01");
-                                                $sectValue2Formatted = $sectValue2->format('Y-m-d');
-
-                                                if ($checkDateFormatted <= $sectValue2Formatted && $checkDateFormatted >= $sectValue1Formatted) {
-                                                    if ($seasonVal['game1'] > 1) {
-                                                        $game1 = $game1 + $seasonVal['game1'];
-                                                        array_push($gamelenth, $seasonVal['game1']);
-                                                    }
-                                                    if ($seasonVal['game2'] > 1) {
-                                                        $game2 = $game2 + $seasonVal['game2'];
-                                                        array_push($gamelenth, $seasonVal['game2']);
-                                                    }
-
-                                                    if ($seasonVal['game3'] > 1) {
-                                                        $game3 = $game3 + $seasonVal['game3'];
-                                                        array_push($gamelenth, $seasonVal['game3']);
-                                                    }
-                                                    array_push($arrayCount, '1');
-                                                    if (sizeof($gamelenth) >= 9) {
-                                                        $addAll = $game1 + $game2 + $game3;
-                                                        $avrgss = $addAll / sizeof($gamelenth);
-                                                    } else {
-                                                        $addAll = 0;
-                                                        $avrgss = 0.00;
-                                                    }
-                                                }
-                                            }
-                                            $seasontourAvg = number_format($avrgss, 2);
-                                            ?>
-                                            <tr>
-                                                <td>
-                                                    <?php echo sizeof($gamelenth); ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $bowlers['bowlerid']; ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $bowlers['name']; ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $bowlers['nickname1']; ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $bowlers['officeheld']; ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $bowlers['sanction']; ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $bowlers['enteringAvg']; ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $bowlers['ubaAvg']; ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $seasontourAvg; ?>
-                                                </td>
-                                                <?php if($_SESSION['userrole'] == 'admin') { ?>
-
-                                                <td><a href="editBowler.php?id=<?php echo $bowlers['id']; ?>"><i
-                                                            class="fas fa-pen-square"></i></a></td>
-                                                <?php } ?>
-                                            </tr>
-                                            <?php
-                                            $i++;
-                                        }
-
-                                        ?>
-                                    </tbody>
                                 </table>
                             </div>
 
@@ -425,18 +322,13 @@ if (isset($_SESSION['success'])) {
                                     <label for="teamSelected">Select Team</label>
                                     <select name="teamSelected" id="teamSelected">
                                         <option value="-" disabled selected>Select</option>
-                                        <?php
-                                        foreach ($dataFetched as $team) {
-                                            ?>
+                                        <?php foreach ($dataFetched as $team) { ?>
                                             <option value="<?php echo $team['teamname']; ?>">
                                                 <?php echo $team['teamname']; ?>
                                             </option>
-                                            <?php
-                                        }
-                                        ?>
+                                        <?php } ?>
                                     </select>
                                 </div>
-
 
                                 <div class="form-group">
                                     <input type="submit" value="Select Team">

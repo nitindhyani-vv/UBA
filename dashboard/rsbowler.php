@@ -3,24 +3,24 @@
     include_once '../session.php';
     include_once '../connect.php';
 
-    $userroleArray = ['admin','staff'];
+    // $userroleArray = array('admin','staff');
 
-    if(in_array($userroleArray,$_SESSION['userrole'])){
-        header("Location: /dashboard/home.php");
-    }
+    // if(in_array($userroleArray, $_SESSION['userrole'])){
+    //     header("Location: /dashboard/home.php");
+    // }
 
-    try {
-        $database = new Connection();
-        $db = $database->openConnection();
+    // try {
+    //     $database = new Connection();
+    //     $db = $database->openConnection();
 
-        $sql = $db->prepare("SELECT * FROM `bowlersreleased`");
-        $sql->execute();
-        // $sql->execute();
-        $bowlerDeets = $sql->fetchAll(); 
+    //     $sql = $db->prepare("SELECT * FROM `bowlersreleased`");
+    //     $sql->execute();
+    //     // $sql->execute();
+    //     $bowlerDeets = $sql->fetchAll(); 
         
-    } catch (PDOException $e) {
-        echo "There was some problem with the connection: " . $e->getMessage();
-    }
+    // } catch (PDOException $e) {
+    //     echo "There was some problem with the connection: " . $e->getMessage();
+    // }
 
     $title = 'Released/Suspended Bowlers';
 
@@ -33,26 +33,20 @@
     } else {
         $msg = '';
     }
-
-
-
 ?>
 
 <div class="users roster">
     <?php echo $msg; ?>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-
-            <h4>Released/Suspended Bowlers List</h4>
+            <div class="col-12 uba-table">
+                    <h4>Released/Suspended Bowlers List</h4>
                     <hr>
-                <?php
-                if ($bowlerDeets) {
-                ?>
                     <table id="released_bowlers">
-                            <thead>
-                                <th>No.</th>
+                        <thead> 
+                            <tr>
+                                <th>No.</th>dfvvfvfvfvdf
                                 <th>UBA ID</th>
                                 <th>Name</th>
                                 <th>Team</th>
@@ -60,53 +54,14 @@
                                 <th>Removed by</th>
                                 <th>Current Status</th>
                                 <th>Eligible Date</th>
-                                <?php if($_SESSION['userrole'] == 'admin') {?>
-                                <th>Reinstate</th>
+                                <?php if ($_SESSION['userrole'] == 'admin') { ?>
+                                <th>Reinstate</th>vvddvdv
                                 <?php } ?>
-                            </thead>
-                            <tbody>
-                            <?php
-                                $i = 1;
-                                foreach ($bowlerDeets as $bowlers) {
-                            ?>
-                                <tr>
-                                    <td><?php echo $i; ?></td>
-                                    <td><?php echo $bowlers['bowlerid']; ?></td>
-                                    <td><?php echo $bowlers['bowler']; ?></td>
-                                    <td><?php echo $bowlers['team']; ?></td>
-                                    <td><?php echo $bowlers['datesubmitted']; ?></td>
-                                    <td><?php echo $bowlers['removedby']; ?></td>
-                                    <td><?php echo $bowlers['currentstatus']; ?></td>
-                                    <td><?php echo $bowlers['eligibledate']; ?></td>
-                                    <?php if($_SESSION['userrole'] == 'admin') {?>
-
-                                    <td>
-                                    <?php
-                                        if ($bowlers['currentstatus'] == 'Suspended' || $bowlers['currentstatus'] == 'Released') {
-                                    ?>
-                                    <a href="process/reinstatebowler.php?id=<?php echo $bowlers['id'];?>">Reinstate</a>
-                                    <?php
-                                        } else {
-                                            echo '-';
-                                        }
-                                    ?>
-                                    </td>
-                                    <?php } ?>
-
-                                </tr>
-                            <?php
-                                $i++;
-                                }
-
-                            ?>
-                            </tbody>
-                        </table>
-                <?php
-                } else {
-                    echo 'No Data';
-                }
-                ?>
-
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
             </div>
         </div>
     </div>

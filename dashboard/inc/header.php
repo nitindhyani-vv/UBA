@@ -520,8 +520,8 @@
             -webkit-transform: translateZ(0);
             -ms-transform: translateZ(0);
             transform: translateZ(0);
-            -webkit-animation-delay: -0.16s;
-            animation-delay: -0.16s;
+            /* -webkit-animation-delay: -0.16s; */
+            /* animation-delay: -0.16s; */
         }
 
         .loader:before,
@@ -533,8 +533,8 @@
 
         .loader:before {
             left: -1.5em;
-            -webkit-animation-delay: -0.32s;
-            animation-delay: -0.32s;
+            /* -webkit-animation-delay: -0.32s; */
+            /* animation-delay: -0.32s; */
         }
 
         .loader:after {
