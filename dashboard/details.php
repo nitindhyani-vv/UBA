@@ -7,7 +7,7 @@ $title = 'Personal Details';
 include 'inc/header.php';
 
 $useremail = $_SESSION['useremail'];
-
+$bowlerID = $_SESSION['bowlerid'];
 try {
     $database = new Connection();
     $db = $database->openConnection();
@@ -17,6 +17,10 @@ try {
     $dataFetched = $sql->fetch();
 
     $bowlerDbID = $dataFetched['id'];
+
+    $bowlersql = $db->prepare("SELECT * FROM `bowlersreleased` WHERE `bowlerid` = '$bowlerID' AND release_status = 0 ");
+    $bowlersql->execute();
+    $bowlerDataFetched = $bowlersql->fetch();
     
 } catch (PDOException $e) {
     echo "There was some problem with the connection: " . $e->getMessage();
@@ -125,7 +129,11 @@ if (isset($_SESSION['success'])) {
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6">
-                        <a href="process/suspendBowler.php?id=<?php echo $bowlerDbID;?>" class="deleteUser"><i class="fas fa-times"></i> Release Yourself from Team</a>
+                        <?php if(!empty($bowlerDataFetched)){ ?>
+                            <a  class="disable-delete-btn"><i class="fas fa-times"></i> Release Yourself from Team</a>
+                        <?php }else{ ?>
+                            <a href="process/suspendBowler.php?id=<?php echo $bowlerDbID;?>" class="deleteUser"><i class="fas fa-times"></i> Release Yourself from Team</a>
+                        <?php }?>
                     </div>    
                 </div> 
             </form>

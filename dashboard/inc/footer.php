@@ -21,7 +21,10 @@
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
     
-    
+    <script>
+        // Pass the user role to JavaScript
+        var userRole = '<?php echo $_SESSION['userrole']; ?>';
+    </script>
 
     <script src="/js/app.js"></script>
     
@@ -617,7 +620,7 @@
                             { "bSortable": false },
                             { "bSortable": false },
                             { "bSortable": false },
-                            { "bSortable": false }
+                            ...(userRole === 'admin' ? [{ "bSortable": false }] : [])
                             ],
                 buttons: [
                     'csv', 'excel', 'pdf',
