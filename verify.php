@@ -69,6 +69,7 @@ include_once 'baseurl.php';
                     
 
                     $_SESSION['team'] = $dataFetched['team'];
+                    $_SESSION['bowlerid'] = $dataFetched['bowlerid']; 
                 }
                 
 

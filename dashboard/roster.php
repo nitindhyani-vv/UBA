@@ -228,7 +228,7 @@ if (isset($_SESSION['success'])) {
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <?php echo sizeof($gamelenth); ?>
+                                                    <?php echo $i; ?>
                                                 </td>
                                                 <td>
                                                     <?php echo $bowlers['bowlerid']; ?>
