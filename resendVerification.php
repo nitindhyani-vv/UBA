@@ -62,4 +62,4 @@ try {
     echo "There was some problem with the connection: " . $e->getMessage();
 }
 
-?>]
+?>

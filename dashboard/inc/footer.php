@@ -389,19 +389,19 @@
 
             
 
-            $('#submitted_rosters').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            null,
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf'
-                ]
-            });
+            // $('#submitted_rosters').DataTable({
+            //     dom: 'lBfrtip',
+            //     "aoColumns": [
+            //                 null,
+            //                 null,
+            //                 { "bSortable": false },
+            //                 null,
+            //                 { "bSortable": false }
+            //                 ],
+            //     buttons: [
+            //         'csv', 'excel', 'pdf'
+            //     ]
+            // });
 
             $('#submitted_rosters_list').DataTable({
                 dom: 'lBfrtip',
@@ -421,24 +421,24 @@
 
 
             
-            $('#nonactive_table_home').DataTable({
-                 dom: 'lBfrtip',
-                "aoColumns": [
-                null,
-                null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                             buttons: [
-                    'csv', 'excel', 'pdf','colvis'],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
+            // $('#nonactive_table_home').DataTable({
+            //      dom: 'lBfrtip',
+            //     "aoColumns": [
+            //     null,
+            //     null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 { "bSortable": false },
+            //                 { "bSortable": false }
+            //                 ],
+            //                  buttons: [
+            //         'csv', 'excel', 'pdf','colvis'],
+            //                 order: [[ 0, 'asc' ]],
+            //                 "searching": false
+            // });
             
             $('#released_bowlers_table_home').DataTable({
                  dom: 'lBfrtip',
@@ -588,27 +588,27 @@
                             order: [[ 1, 'asc' ]]
             });
             
-            $('#registrationTable').DataTable( {
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            } );
+            // $('#registrationTable').DataTable( {
+            //     dom: 'lBfrtip',
+            //     "aoColumns": [
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 { "bSortable": false },
+            //                 { "bSortable": false },
+            //                 { "bSortable": false }
+            //                 ],
+            //     buttons: [
+            //         'csv', 'excel', 'pdf',
+            // 'colvis'
+            //     ],
+            //     order: [[ 1, 'asc' ]]
+            // } );
             
 
             $('#teamRoster').DataTable( {
@@ -691,20 +691,20 @@
                 order: [[ 1, 'asc' ]]
             });
 
-            $('#team_officials').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            null
-                            ],
-                            buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            });
+            // $('#team_officials').DataTable({
+            //     dom: 'lBfrtip',
+            //     "aoColumns": [
+            //                 null,
+            //                 null,
+            //                 { "bSortable": false },
+            //                 null
+            //                 ],
+            //                 buttons: [
+            //         'csv', 'excel', 'pdf',
+            // 'colvis'
+            //     ],
+            //     order: [[ 1, 'asc' ]]
+            // });
 
             $('#table_1_events_home').DataTable({
                 dom: 'lBfrtip',

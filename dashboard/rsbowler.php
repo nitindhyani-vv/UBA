@@ -46,7 +46,7 @@
                     <table id="released_bowlers">
                         <thead> 
                             <tr>
-                                <th>No.</th>dfvvfvfvfvdf
+                                <th>No.</th>
                                 <th>UBA ID</th>
                                 <th>Name</th>
                                 <th>Team</th>
@@ -55,7 +55,7 @@
                                 <th>Current Status</th>
                                 <th>Eligible Date</th>
                                 <?php if ($_SESSION['userrole'] == 'admin') { ?>
-                                <th>Reinstate</th>vvddvdv
+                                <th>Reinstate</th>
                                 <?php } ?>
                             </tr>
                         </thead>

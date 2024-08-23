@@ -202,6 +202,10 @@ button.btn {
     margin-right: 9px !important;
     height: 40px !important;
 }
+thead {
+    background-color: #a54c00;
+    color: #fff;
+}
 </style>
 
 <!-- bootsrap modal -->
@@ -255,18 +259,18 @@ button.btn {
 
 <!-- For add bowler -->
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <?php echo $msg; ?>
 
-        <div class="col-12">
+        <div class="col-12 mb-5 uba-table">
             <?php
                 if ($_SESSION['userrole'] == 'admin') {
                     if ($nonactivebowlers) {
         ?>
 
-            <h4 class="claimRequests">Bowlers added by Team President/Owner</h4>
-            <table id="nonactive_table_home" class="display">
+            <h4 class="claimRequests mb-4">Bowlers added by Team President/Owner</h4>
+            <table id="bowlerAddedByTeamPresedent" class="display">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -280,53 +284,6 @@ button.btn {
                         <th>Decline</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php
-                        $i = 1;
-                        foreach ($nonactivebowlers as $singleScoreData) {
-                    ?>
-                    <tr>
-                        <td>
-                            <?php echo $i; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['bowlerid']; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['name']; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['team'];?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['nickname1'];?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['sanction'];?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['create_at'];?>
-                        </td>
-                        <!-- onclick="showConfirmation('transfer','<?=$bowlerId?>','<?=$id?>')" 
-                        href="process/activateBowler.php?id=y&bowler=<?php echo $singleScoreData['bowlerid'];?>"
-                    -->
-                        <?php 
-                            $bowlerId = $singleScoreData['bowlerid'];
-                            //$id= $singleScoreData['id'];
-                        ?>
-
-                        <td class="approve"><a style="cursor: pointer;"
-                                onclick="showConfirmationAddBowler('add','<?=$bowlerId?>')"><i
-                                    class="fas fa-check"></i></a></td>
-                        <td class="decline"><a
-                                href="process/activateBowler.php?id=n&bowler=<?php echo $singleScoreData['bowlerid'];?>"><i
-                                    class="fas fa-times"></i></a></td>
-                    </tr>
-                    <?php
-                        $i++;
-                        }
-                    ?>
-                </tbody>
             </table>
 
             <?php
