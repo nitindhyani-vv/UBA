@@ -389,11 +389,243 @@ $("#registrationTable").DataTable({
       { data: "decline", orderable: false },
     ],
     dom: "lBfrtip",
-    buttons: [],
+    buttons: [ 
+      {
+        extend: "csv",
+        text: "Export CSV",
+        action: function(e, dt, button, config) {
+          exportData(dt,'csv',"pagination/bowler_addedby_team_presedent.php?");
+        }
+      },
+      {
+        extend: "excel",
+        text: "Export Excel",
+        action: function(e, dt, button, config) {
+          exportData(dt,"excel","pagination/bowler_addedby_team_presedent.php?");
+
+        }
+      },
+      {
+        extend: "pdf",
+        text: "Export PDF",
+        action: function(e, dt, button, config) {
+          exportData(dt,"pdf","pagination/bowler_addedby_team_presedent.php?");
+        }
+      }
+    ],
     order: [[0, "asc"]],
     pageLength: 10,
   });
 
+
+  $("#releasedBowlersTableHome").DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: "pagination/bowlers_released_by_tema.php", // Replace with the correct PHP file path
+      type: "GET",
+    },
+    columns: [
+      { data: "no", orderable: true },
+      { data: "bowler_id", orderable: true },
+      { data: "name", orderable: true },
+      { data: "released_from", orderable: true },
+      { data: "status", orderable: true },
+      { data: "date", orderable: true },
+      { data: "close", orderable: false },
+    ],
+    dom: "lBfrtip",
+    buttons: [ 
+      {
+        extend: "csv",
+        text: "Export CSV",
+        action: function(e, dt, button, config) {
+          exportData(dt,'csv',"pagination/bowlers_released_by_tema.php?");
+        }
+      },
+      {
+        extend: "excel",
+        text: "Export Excel",
+        action: function(e, dt, button, config) {
+          exportData(dt,"excel","pagination/bowlers_released_by_tema.php?");
+
+        }
+      },
+      {
+        extend: "pdf",
+        text: "Export PDF",
+        action: function(e, dt, button, config) {
+          exportData(dt,"pdf","pagination/bowlers_released_by_tema.php?");
+        }
+      }
+    ],
+    order: [[0, "desc"]],
+    pageLength: 10,
+  });
+
+  $("#president_table_home").DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: "pagination/president_request.php", // Replace with the correct PHP file path
+      type: "GET",
+    },
+    columns: [
+      { data: "no", orderable: true },
+      { data: "bowler_id", orderable: true },
+      { data: "name", orderable: true },
+      { data: "team", orderable: true },
+      { data: "approve", orderable: false },
+      { data: "decline", orderable: false },
+    ],
+    dom: "lBfrtip",
+    buttons: [ 
+      {
+        extend: "csv",
+        text: "Export CSV",
+        action: function(e, dt, button, config) {
+          exportData(dt,'csv',"pagination/president_request.php?");
+        }
+      },
+      {
+        extend: "excel",
+        text: "Export Excel",
+        action: function(e, dt, button, config) {
+          exportData(dt,"excel","pagination/president_request.php?");
+
+        }
+      },
+      {
+        extend: "pdf",
+        text: "Export PDF",
+        action: function(e, dt, button, config) {
+          exportData(dt,"pdf","pagination/president_request.php?");
+        }
+      }
+    ],
+    order: [[0, "desc"]],
+    pageLength: 10,
+  });
+
+
+  $("#ownerTableHome").DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: "pagination/owner_request.php", // Replace with the correct PHP file path
+      type: "GET",
+    },
+    columns: [
+      { data: "no", orderable: true },
+      { data: "bowler_id", orderable: true },
+      { data: "name", orderable: true },
+      { data: "team", orderable: true },
+      { data: "approve", orderable: false },
+      { data: "decline", orderable: false },
+    ],
+    dom: "lBfrtip",
+    buttons: [ 
+      {
+        extend: "csv",
+        text: "Export CSV",
+        action: function(e, dt, button, config) {
+          exportData(dt,'csv',"pagination/owner_request.php?");
+        }
+      },
+      {
+        extend: "excel",
+        text: "Export Excel",
+        action: function(e, dt, button, config) {
+          exportData(dt,"excel","pagination/owner_request.php?");
+
+        }
+      },
+      {
+        extend: "pdf",
+        text: "Export PDF",
+        action: function(e, dt, button, config) {
+          exportData(dt,"pdf","pagination/owner_request.php?");
+        }
+      }
+    ],
+    order: [[0, "desc"]],
+    pageLength: 10,
+  });
+
+
+  $("#transferTableHome").DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: "pagination/bowlers_transfer.php", // Replace with the correct PHP file path
+      type: "GET",
+    },
+    columns: [
+      { data: "no", orderable: true },
+      { data: "requested_by", orderable: true },
+      { data: "bowler", orderable: true },
+      { data: "bowler_id", orderable: true },
+      { data: "from", orderable: true },
+      { data: "to", orderable: true },
+      { data: "date_time", orderable: true },
+      { data: "approve", orderable: false },
+      { data: "decline", orderable: false },
+    ],
+    dom: "lBfrtip",
+    buttons: [ 
+      {
+        extend: "csv",
+        text: "Export CSV",
+        action: function(e, dt, button, config) {
+          exportData(dt,'csv',"pagination/bowlers_transfer.php?");
+        }
+      },
+      {
+        extend: "excel",
+        text: "Export Excel",
+        action: function(e, dt, button, config) {
+          exportData(dt,"excel","pagination/bowlers_transfer.php?");
+
+        }
+      },
+      {
+        extend: "pdf",
+        text: "Export PDF",
+        action: function(e, dt, button, config) {
+          exportData(dt,"pdf","pagination/bowlers_transfer.php?");
+        }
+      }
+    ],
+    order: [[0, "desc"]],
+    pageLength: 10,
+  });
+
+
+  $("#homeSeasonsTourHome").DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: "pagination/bowlers_transfer.php", // Replace with the correct PHP file path
+      type: "GET",
+    },
+    columns: [
+      { data: "no", orderable: true },
+      { data: "date", orderable: true },
+      { data: "year", orderable: true },
+      { data: "event_name", orderable: true },
+      { data: "event_type", orderable: true },
+      { data: "team", orderable: true },
+      { data: "game1", orderable: true },
+      { data: "game2", orderable: false },
+      { data: "game3", orderable: false },
+    ],
+    dom: "lBfrtip",
+    buttons: [],
+    order: [[0, "desc"]],
+    pageLength: 10,
+  });
+
+  
   // Reusable function to handle exports using post method
   function bowlerRosterexportData(dt, exportType,filePath) {
     var params = dt.ajax.params();

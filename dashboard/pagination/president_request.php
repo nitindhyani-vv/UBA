@@ -17,14 +17,10 @@ try{
     $columns = [
         0 => 'id',
         1 => 'bowlerid',
-        2 => 'name',
-        3 => 'team',
-        4 => 'nickname1',
-        5 => 'sanction',
-        6 => 'create_at',
-
+        2 => 'bowler',
+        3 => 'team'
     ];
-    
+
     $searchValue = isset($_GET['search']['value']) ? $_GET['search']['value'] : '';
     $orderIndex = isset($_GET['order'][0]['column']) ? intval($_GET['order'][0]['column']) : 0;
     $orderDir = isset($_GET['order'][0]['dir']) ? $_GET['order'][0]['dir'] : 'DESC';
@@ -35,40 +31,37 @@ try{
 $searchQuery = "";
 if (!empty($searchValue)) {
     $searchValue = "%$searchValue%";
-    $searchQuery = " AND (bowlerid LIKE :searchValue OR  name LIKE :searchValue OR team LIKE :searchValue OR 
-            nickname1 LIKE :searchValue OR sanction LIKE :searchValue OR create_at LIKE :searchValue)";
+    $searchQuery = " AND (bowlerid LIKE :searchValue OR  bowler LIKE :searchValue OR team LIKE :searchValue)";
 }
 $orderColumn = isset($columns[$orderIndex]) ? $columns[$orderIndex] : 'id';
 
-$nonactive = 0;
-
+$approved = 0;
 // Fetch total records count
-$stmt = $db->prepare("SELECT COUNT(*) as count FROM bowlers WHERE `active` = :nonactive $searchQuery");
+$stmt = $db->prepare("SELECT COUNT(*) as count FROM `presidency` WHERE `approved` = :approved $searchQuery");
 if (!empty($searchValue)) {
     $stmt->bindParam(':searchValue', $searchValue);
 }
-$stmt->bindParam(':nonactive', $nonactive, PDO::PARAM_INT);
+$stmt->bindParam(':approved', $approved, PDO::PARAM_INT);
 $stmt->execute();
 $totalRecords = $stmt->fetchColumn();
 
-
 if(isset($_GET['exportType'])){
-    $sql = "SELECT * FROM `bowlers` WHERE `active` = :nonactive $searchQuery ORDER BY $orderColumn $orderDir";
+    $sql = "SELECT * FROM `presidency` WHERE `approved` = :approved $searchQuery ORDER BY $orderColumn $orderDir";
     $stmt = $db->prepare($sql);
     if (!empty($searchValue)) {
         $stmt->bindParam(':searchValue', $searchValue);
     }
-    $stmt->bindParam(':nonactive', $nonactive, PDO::PARAM_INT);
+    $stmt->bindParam(':approved', $approved, PDO::PARAM_INT);
     $stmt->execute();
     $dataFetched = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 }else{
- $sql = "SELECT * FROM `bowlers` WHERE `active` = :nonactive $searchQuery ORDER BY $orderColumn $orderDir LIMIT :start, :limit";
+ $sql = "SELECT * FROM `presidency` WHERE `approved` = :approved $searchQuery ORDER BY $orderColumn $orderDir LIMIT :start, :limit";
     $stmt = $db->prepare($sql);
     if (!empty($searchValue)) {
         $stmt->bindParam(':searchValue', $searchValue);
     }
-    $stmt->bindParam(':nonactive', $nonactive, PDO::PARAM_INT);
+    $stmt->bindParam(':approved', $approved, PDO::PARAM_INT);
     $stmt->bindParam(':start', $start, PDO::PARAM_INT);
     $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
@@ -93,16 +86,13 @@ if (isset($_GET['exportType'])) {
 
 $data = [];
 $i = $start + 1;
-foreach ($dataFetched as $singleScoreData) {
+foreach ($dataFetched as $rowData) {
     $row['no'] = $i++ ?? '-'; 
-    $row['bowlerID'] = $singleScoreData['bowlerid'] ?? '-';
-    $row['name']     = $singleScoreData['name'] ?? '-';
-    $row['teamName'] = $singleScoreData['team'] ?? '-';
-    $row['nickname'] = $singleScoreData['nickname1'] ?? '-';
-    $row['sanction'] = $singleScoreData['sanction'] ?? '-';
-    $row['createAt'] = $singleScoreData['create_at'] ?? '-';
-    $row['approve'] =  "<a style='cursor: pointer;' class='approve' onclick='showConfirmationAddBowler('add','".$singleScoreData['bowlerid']."')'><i class='fas fa-check'></i></a>";
-    $row['decline'] =  "<a class='decline' href='process/activateBowler.php?id=n&bowler={$singleScoreData['bowlerid']}'><i class='fas fa-times'></i></a>";
+    $row['bowler_id'] = $rowData['bowlerid'] ?? '-';
+    $row['name']     = $rowData['bowler'] ?? '-';
+    $row['team'] = $rowData['team'] ?? '-';
+    $row['approve'] =  "<a class='approve' href='process/acceptPresident.php?id=y&bowler={$rowData['bowlerid']}'><i class='fas fa-check'></i></a>";
+    $row['decline'] =  "<a class='decline' href='process/acceptPresident.php?id=n&bowler={$rowData['bowlerid']}'><i class='fas fa-times'></i></a>";
     $data[] = $row;
 }
 
@@ -116,14 +106,15 @@ $response = [
 header('Content-Type: application/json');
 echo json_encode($response);
 
+
 function exportCSV($data) {
     header('Content-Type: text/csv');
-    header('Content-Disposition: attachment; filename="bowlers.csv"');
+    header('Content-Disposition: attachment; filename="president-request.csv"');
     $output = fopen("php://output", "w");
-    $headers = ['UBA ID', 'Name', 'Team','Nickname','Senction','Create At'];
+    $headers = ['Bowler Id', 'Name', 'Team'];
     fputcsv($output, $headers);
     foreach ($data as $row) {
-        $rowRaw = [$row['bowlerid'], $row['name'], $row['team'], $row['nickname1'],$row['sanction'],$row['create_at']];
+        $rowRaw = [$row['bowlerid'], $row['bowler'], $row['team']];
         fputcsv($output, $rowRaw);
     }
     fclose($output);
@@ -134,26 +125,20 @@ function exportExcel($data) {
     $sheet = $spreadsheet->getActiveSheet();
     // Set column headers
     $sheet->setCellValue('A1', 'No');
-    $sheet->setCellValue('B1', 'UBA ID');
+    $sheet->setCellValue('B1', 'Bowler ID');
     $sheet->setCellValue('C1', 'Name');
     $sheet->setCellValue('D1', 'Team');
-    $sheet->setCellValue('E1', 'Nickname');
-    $sheet->setCellValue('F1', 'Senction');
-    $sheet->setCellValue('G1', 'Create At');
 
     $rowNum = 2; $i = 1;
     foreach ($data as $row) {
         $sheet->setCellValue('A' . $rowNum, $i++);
         $sheet->setCellValue('B' . $rowNum, $row['bowlerid']);
-        $sheet->setCellValue('C' . $rowNum, $row['name']);
+        $sheet->setCellValue('C' . $rowNum, $row['bowler']);
         $sheet->setCellValue('D' . $rowNum, $row['team']);
-        $sheet->setCellValue('E' . $rowNum, $row['nickname1']);
-        $sheet->setCellValue('F' . $rowNum, $row['sanction']);
-        $sheet->setCellValue('G' . $rowNum, $row['create_at']);
         $rowNum++;
     }
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment; filename="bowlers.xlsx"');
+    header('Content-Disposition: attachment; filename="president-request.xlsx"');
     header('Cache-Control: max-age=0');
     $writer = new Xlsx($spreadsheet);
     $writer->save('php://output');
@@ -165,30 +150,25 @@ function exportPDF($data) {
     $pdf->SetFont('Arial', 'B', 12);
 
     // Set column headers
-    $pdf->Cell(25, 10, 'UBA ID', 1);
-    $pdf->Cell(40, 10, 'Name', 1);
-    $pdf->Cell(40, 10, 'Team', 1);
-    $pdf->Cell(30, 10, 'Nickname', 1);
-    $pdf->Cell(28, 10, 'Senction', 1);
-    $pdf->Cell(25, 10, 'Create At', 1);
+    $pdf->Cell(60, 10, 'Bowler ID', 1);
+    $pdf->Cell(60, 10, 'Name', 1);
+    $pdf->Cell(60, 10, 'Team', 1);
     $pdf->Ln();
 
     // Add data rows
     $pdf->SetFont('Arial', '', 12);
     $i=1;
     foreach ($data as $row) {
-        $pdf->Cell(25, 10, $row['bowlerid'], 1);
-        $pdf->Cell(40, 10, $row['name'], 1);
-        $pdf->Cell(40, 10, $row['team'], 1);
-        $pdf->Cell(30, 10, $row['nickname1'], 1);
-        $pdf->Cell(28, 10, $row['sanction'], 1);
-        $pdf->Cell(25, 10, $row['create_at'], 1);
+        $pdf->Cell(60, 10, $row['bowlerid'], 1);
+        $pdf->Cell(60, 10, $row['bowler'], 1);
+        $pdf->Cell(60, 10, $row['team'], 1);
         $pdf->Ln();
     }
     
     header('Content-Type: application/pdf');
-    header('Content-Disposition: attachment; filename="bowlers.pdf"');
-    $pdf->Output('I', 'bowlers.pdf');
+    header('Content-Disposition: attachment; filename="president-request.pdf"');
+    $pdf->Output('I', 'president-request.pdf');
 }
+
 
 ?>

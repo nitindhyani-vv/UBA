@@ -18,9 +18,9 @@
         $db = $database->openConnection();
 
         if ($_SESSION['userrole'] == 'admin') {
-            $approved = 0;
+            $approved = 1;
 
-            $nickChanged = 1;
+            $nickChanged = 0;
 
             $sql = $db->prepare("SELECT * FROM `presidency` WHERE `approved` = :approved");
             $sql->execute([':approved' => $approved]);
@@ -202,9 +202,11 @@ button.btn {
     margin-right: 9px !important;
     height: 40px !important;
 }
-thead {
+
+table th {
     background-color: #a54c00;
-    color: #fff;
+    color: white;
+    border-color: #a54c00;
 }
 </style>
 
@@ -257,18 +259,14 @@ thead {
     </div>
 </div>
 
-<!-- For add bowler -->
 
 <div class="container-fluid">
     <div class="row">
         <?php echo $msg; ?>
-
-        <div class="col-12 mb-5 uba-table">
-            <?php
-                if ($_SESSION['userrole'] == 'admin') {
-                    if ($nonactivebowlers) {
-        ?>
-
+    </div>
+    <?php if ($_SESSION['userrole'] == 'admin') {  ?>
+    <div class="row">
+        <div class="col-12 uba-table">
             <h4 class="claimRequests mb-4">Bowlers added by Team President/Owner</h4>
             <table id="bowlerAddedByTeamPresedent" class="display">
                 <thead>
@@ -285,6 +283,189 @@ thead {
                     </tr>
                 </thead>
             </table>
+        </div>
+    </div>
+    <hr/>
+
+    <div class="row">
+        <div class="col-12 uba-table">
+            <h4 class="claimRequests  mb-4">Bowlers released/suspended by Team President/Owner</h4>
+            <table id="releasedBowlersTableHome" class="display">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Bowler ID</th>
+                        <th>Name</th>
+                        <th>Released From</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Close</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <hr/>
+
+    <div class="row">
+        <div class="col-12 uba-table">
+            <h4 class="claimRequests">President Requests</h4>
+            <table id="president_table_home" class="display">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Bowler ID</th>
+                        <th>Name</th>
+                        <th>Team</th>
+                        <th>Approve</th>
+                        <th>Decline</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-12 uba-table">
+            <h4 class="claimRequests">Ownership Requests</h4>
+            <table id="ownerTableHome" class="display">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Bowler ID</th>
+                        <th>Name</th>
+                        <th>Team</th>
+                        <th>Approve</th>
+                        <th>Decline</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-12 uba-table">
+            <h4 class="claimRequests">Bowler Transfer Requests NEW</h4>
+            <table id="transferTableHome" class="display">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Requested By</th>
+                        <th>Bowler</th>
+                        <th>Bowler ID</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Date & Time</th>
+                        <th>Approve</th>
+                        <th>Decline</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <hr/>
+    <?php } ?>
+    
+    <div class="row col-12">
+        <h4><?php echo $bowlerDeets['name']; ?></h4>
+        <?php if ($_SESSION['userrole'] == 'bowler' || $_SESSION['userrole'] == 'president' || $_SESSION['userrole'] == 'owner') {
+                    if (($teamDeets['president'] == '-' || $teamDeets['president'] == '') && !$presidency) { ?>
+            <div class="claim presidentClaim">
+                <a href="claimPresidency.php">Claim Presidency for
+                    <?php echo $_SESSION['team'];?></a>
+            </div>
+        <hr/>
+        <?php 
+            }
+            if (($teamDeets['owner'] == '-' || $teamDeets['owner'] == '') && !$ownership) {
+        ?>
+        <div class="claim ownerClaim">
+            <a href="claimOwnership.php">Claim Ownership for
+                <?php echo $_SESSION['team'];?></a>
+        </div>
+        <hr/>
+        <?php }  } ?>
+
+        <div class="col-12 averages">
+            <span>UBA:<b> <?php echo $ubaAvg;?></b></span>
+            <span>Season Tour: <b><span id="showSeasonAvrg"><?php echo number_format($seasonTourAvg,2);?></span></b></span>
+            <span>Entering Average: <b> <?php echo $bowlerEnteringAvg;?></b></span>
+        </div>
+    </div>
+    <hr/>
+    <div class="row mt-4">
+        <div class="col-12 uba-table">
+            <h4 class="claimRequests">Season Tour</h4>
+            <label for="seasonYear">Please select the year:</label>
+            <select name="seasonYear" id="seasonYear">
+                <option value="View All">All Seasons</option>
+                <?php $current_year = date("Y")+1; $current_year_s = date("y")+1;
+					if(date("Y") >= date("Y")){ $count = 5; }else{ $count = 6; }
+					for ($s = 1; $s <= $count; $s++) {
+						if($s == 1){ $styear = $current_year-$s; $endyear = $current_year_s;}
+						else{ $styear = $current_year-$s; $endyear = $current_year_s-$s+1;} ?>
+                        <option value="<?=$styear.'/'.$endyear;?>"><?=$styear.'/'.$endyear;?></option>
+                <?php } ?>
+            </select>
+
+            <button class="btn btn-info btn-sm" onclick="submitSeasonYear()"> Submit</button>
+                <table id="homeSeasonsTourHome" class="display">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Date</th>
+                            <th>Year</th>
+                            <th>Event Name</th>
+                            <th>Event Type</th>
+                            <th>Team</th>
+                            <th>Game 1</th>
+                            <th>Game 2</th>
+                            <th>Game 3</th>
+                        </tr>
+                    </thead>
+                </table>
+        </div>        
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<!-- For add bowler -->
+
+<div class="container-fluid">
+    <div class="row">
+        <?php echo $msg; ?>
+
+        <div class="col-12">
+            <?php
+                if ($_SESSION['userrole'] == 'admin') {
+                    if ($nonactivebowlers) {
+        ?>
+
+            <h4 class="claimRequests">Bowlers added by Team President/Owner</h4>
+            
 
             <?php
                     } else {
@@ -303,61 +484,7 @@ thead {
             ?>
 
             <h4 class="claimRequests">Bowlers released/suspended by Team President/Owner</h4>
-            <table id="released_bowlers_table_home" class="display">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Bowler ID</th>
-                        <th>Name</th>
-                        <!-- <th>Team </th> -->
-                        <th>Released From</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th style="display:none;">Approve</th>
-                        <th>Close</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        $i = 1;
-                        foreach ($bowlersReleased as $singleScoreData) {
-                    ?>
-                    <tr>
-                        <td>
-                            <?php echo $i; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['bowlerid']; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['bowler']; ?>
-                        </td>
-                        <td>
-                            <?php
-                                echo $singleScoreData['team']; 
-                                ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['currentstatus'];?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['datesubmitted'];?>
-                        </td>
-                        <td style="display:none;" class="approve"><a
-                                href="process/approveRelease.php?id=y&bowler=<?php echo $singleScoreData['bowlerid'];?>"><i
-                                    class="fas fa-check"></i></a></td>
-                        <td class="decline">
-                            <a onclick="approveRelease('<?=$singleScoreData['bowlerid'];?>')"><i
-                                    class="fas fa-times"></i></a>
-                        </td>
-
-                    </tr>
-                    <?php
-                        $i++;
-                        }
-                    ?>
-                </tbody>
-            </table>
+           
 
             <?php
                     } else {
@@ -376,48 +503,7 @@ thead {
                     if ($presidentClaims) {
             ?>
             <h4 class="claimRequests">President Requests</h4>
-            <table id="president_table_home" class="display">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Bowler ID</th>
-                        <th>Name</th>
-                        <th>Team</th>
-                        <th>Approve</th>
-                        <th>Decline</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                                    $i = 1;
-                                    foreach ($presidentClaims as $singleScoreData) {
-                                ?>
-                    <tr>
-                        <td>
-                            <?php echo $i; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['bowlerid']; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['bowler']; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['team'];?>
-                        </td>
-                        <td class="approve"><a
-                                href="process/acceptPresident.php?id=y&bowler=<?php echo $singleScoreData['bowlerid'];?>"><i
-                                    class="fas fa-check"></i></a></td>
-                        <td class="decline"><a
-                                href="process/acceptPresident.php?id=n&bowler=<?php echo $singleScoreData['bowlerid'];?>"><i
-                                    class="fas fa-times"></i></a></td>
-                    </tr>
-                    <?php
-                                    $i++;
-                                    }
-                                ?>
-                </tbody>
-            </table>
+            
             <?php
                     } else {
                         echo 'No Active President Claims <br>';
@@ -427,48 +513,7 @@ thead {
             ?>
             <hr>
             <h4 class="claimRequests">Ownership Requests</h4>
-            <table id="owner_table_home" class="display">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Bowler ID</th>
-                        <th>Name</th>
-                        <th>Team</th>
-                        <th>Approve</th>
-                        <th>Decline</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        $i = 1;
-                        foreach ($ownerClaims as $singleScoreData) {
-                    ?>
-                    <tr>
-                        <td>
-                            <?php echo $i; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['bowlerid']; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['bowler']; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['team'];?>
-                        </td>
-                        <td class="approve"><a
-                                href="process/acceptOwner.php?id=y&bowler=<?php echo $singleScoreData['bowlerid'];?>"><i
-                                    class="fas fa-check"></i></a></td>
-                        <td class="decline"><a
-                                href="process/acceptOwner.php?id=n&bowler=<?php echo $singleScoreData['bowlerid'];?>"><i
-                                    class="fas fa-times"></i></a></td>
-                    </tr>
-                    <?php
-                                    $i++;
-                                    }
-                                ?>
-                </tbody>
-            </table>
+            
             <?php
                     } else {
                         echo 'No Active Ownership Claims <br>';
@@ -478,64 +523,7 @@ thead {
                         ?>
             <hr>
             <h4 class="claimRequests">Bowler Transfer Requests</h4>
-            <table id="transfer_table_home" class="display">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Requested By</th>
-                        <th>Bowler</th>
-                        <th>Bowler ID</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Date & Time</th>
-                        <th>Approve</th>
-                        <th>Decline</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                                                $i = 1;
-                                                foreach ($transferClaims as $singleScoreData) {
-                                            ?>
-                    <tr>
-                        <td>
-                            <?php echo $i; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['requestedby']; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['bowler']; ?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['bowlerid'];?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['fromteam'];?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['toteam'];?>
-                        </td>
-                        <td>
-                            <?php echo $singleScoreData['claimtime'];?>
-                        </td>
-                        <?php 
-                            $bowlerId = $singleScoreData['bowlerid'];
-                            $id= $singleScoreData['id'];
-                        ?>
-                        <td class="approve"><a style="cursor: pointer;"
-                                onclick="showConfirmation('transfer','<?=$bowlerId?>','<?=$id?>')"><i
-                                    class="fas fa-check"></i></a></td>
-                        <td class="decline"><a
-                                href="process/acceptTransfer.php?id=n&bowler=<?php echo $singleScoreData['bowlerid'];?>&tab=<?php echo $singleScoreData['id'];?>"><i
-                                    class="fas fa-times"></i></a></td>
-                    </tr>
-                    <?php
-                                                $i++;
-                                                }
-                                            ?>
-                </tbody>
-            </table>
+           
             <?php
                                 } else {
                                     echo 'No Active Bowler Transfers Requests <br>';
@@ -913,7 +901,7 @@ function submitSeasonYear() {
 
             //remove old value
 
-            var tableSeasons = $('#table_1_seasons_home').dataTable();
+            var tableSeasons = $('#homeSeasonsTourHome').dataTable();
 
             tableSeasons.fnClearTable();
             // tableSeasons.dataTable().fnAddData(jsonObj);
@@ -932,7 +920,6 @@ function submitSeasonYear() {
                     values.push(jsonObj[i]['game1']);
                     values.push(jsonObj[i]['game2']);
                     values.push(jsonObj[i]['game3']);
-
                     tableSeasons.fnAddData([values]);
                 }
 

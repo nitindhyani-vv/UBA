@@ -440,23 +440,23 @@
             //                 "searching": false
             // });
             
-            $('#released_bowlers_table_home').DataTable({
-                 dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                             buttons: [
-                    'csv', 'excel', 'pdf','colvis'],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
+            // $('#released_bowlers_table_home').DataTable({
+            //      dom: 'lBfrtip',
+            //     "aoColumns": [
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 { "bSortable": false },
+            //                 { "bSortable": false }
+            //                 ],
+            //                  buttons: [
+            //         'csv', 'excel', 'pdf','colvis'],
+            //                 order: [[ 0, 'asc' ]],
+            //                 "searching": false
+            // });
 
             $('#bowlers_released_table_home').DataTable({
                 "aoColumns": [
@@ -500,18 +500,18 @@
 
             
 
-            $('#president_table_home').DataTable({
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false }
-                            ],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
+            // $('#president_table_home').DataTable({
+            //     "aoColumns": [
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 { "bSortable": false }
+            //                 ],
+            //                 order: [[ 0, 'asc' ]],
+            //                 "searching": false
+            // });
 
             $('#owner_table_home').DataTable({
                 "aoColumns": [
@@ -725,22 +725,22 @@
                         order: [[ 0, 'asc' ]]
             });
 
-            $('#table_1_seasons_home').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            null,
-                            { "bSortable": false },
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                            buttons: ['csv', 'excel', 'pdf','colvis'],
-        order: [[ 0, 'asc' ]]
-            });
+        //     $('#table_1_seasons_home').DataTable({
+        //         dom: 'lBfrtip',
+        //         "aoColumns": [
+        //                     null,
+        //                     null,
+        //                     { "bSortable": false },
+        //                     null,
+        //                     { "bSortable": false },
+        //                     null,
+        //                     null,
+        //                     { "bSortable": false },
+        //                     { "bSortable": false }
+        //                     ],
+        //                     buttons: ['csv', 'excel', 'pdf','colvis'],
+        // order: [[ 0, 'asc' ]]
+        //     });
         });
     </script>
 
