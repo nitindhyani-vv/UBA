@@ -279,7 +279,7 @@ $("#registrationTable").DataTable({
 });
 
   // dashboard/submittedroster.php file submitted roster
-  $("#team_official").DataTable({
+  $("#teamOfficial").DataTable({
     processing: true,
     serverSide: true,
     ajax: {
@@ -600,45 +600,261 @@ $("#registrationTable").DataTable({
     pageLength: 10,
   });
 
+  $(document).ready(function() {
+    // Function to initialize DataTable and reload data
+    function loadSeasonTourTable(selectedYear) {
+      $("#homeSeasonsTourHome").DataTable({
+        processing: true,
+        serverSide: true,
+        destroy: true, // This ensures the table is reinitialized
+        ajax: {
+          url: "pagination/homeSeasonTour.php", // Replace with the correct PHP file path
+          type: "POST",
+          data: function(d) {
+            var sessionYear = $('#seasonYear1').val();
+            d.seasonYear = selectedYear || sessionYear; // Send selected year to server
+          }
+        },
+        columns: [
+          { data: "no", orderable: true },
+          { data: "date", orderable: true },
+          { data: "year", orderable: true },
+          { data: "event_name", orderable: true },
+          { data: "event_type", orderable: true },
+          { data: "team", orderable: true },
+          { data: "game1", orderable: true },
+          { data: "game2", orderable: false },
+          { data: "game3", orderable: false },
+        ],
+        dom: "lBfrtip",
+        buttons: [ 
+          {
+            extend: "csv",
+            text: "Export CSV",
+            action: function(e, dt, button, config) {
+              dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], true); 
+              bowlerRosterexportData(dt,'csv',"pagination/homeSeasonTour.php");
+              setTimeout(function() {
+                dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], false);
+              }, 4000);
+            }
+          },
+          {
+            extend: "excel",
+            text: "Export Excel",
+            action: function(e, dt, button, config) {
+              dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], true); 
+              bowlerRosterexportData(dt,"excel","pagination/homeSeasonTour.php");
+              setTimeout(function() {
+                dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], false);
+              }, 4000);
+            }
+          },
+          {
+            extend: "pdf",
+            text: "Export PDF",
+            action: function(e, dt, button, config) {
+              dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], true); 
+              bowlerRosterexportData(dt,"pdf","pagination/homeSeasonTour.php");
+              setTimeout(function() {
+                dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], false);
+              }, 4000);
+            }
+          }
+        ],
+        order: [[0, "desc"]],
+        pageLength: 10,
+      });
+    }
+  
+    loadSeasonTourTable();
+  
+    $('#homeSeasonsTour').on('click', function() {
+      var sessionYear = $('#seasonYear1').val();
+      loadSeasonTourTable(sessionYear);
+    });
 
-  $("#homeSeasonsTourHome").DataTable({
+
+    function loadEventTable(selectedYear) {
+      $("#homeEventHome").DataTable({
+        processing: true,
+        serverSide: true,
+        destroy: true, // This ensures the table is reinitialized
+        ajax: {
+          url: "pagination/homeEvent.php", // Replace with the correct PHP file path
+          type: "POST",
+          data: function(d) {
+            var sessionYear = $('#seasonYear2').val();
+            d.seasonYear = selectedYear || sessionYear; // Send selected year to server
+          }
+        },
+        columns: [
+          { data: "no", orderable: true },
+          { data: "date", orderable: true },
+          { data: "year", orderable: true },
+          { data: "event_name", orderable: true },
+          { data: "event_type", orderable: true },
+          { data: "team", orderable: true },
+          { data: "game1", orderable: true },
+          { data: "game2", orderable: false },
+          { data: "game3", orderable: false },
+          { data: "game4", orderable: false },
+          { data: "game5", orderable: false },
+        ],
+        dom: "lBfrtip",
+        buttons: [ 
+          {
+            extend: "csv",
+            text: "Export CSV",
+            action: function(e, dt, button, config) {
+              dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], true); 
+              bowlerRosterexportData(dt,'csv',"pagination/homeEvent.php");
+              setTimeout(function() {
+                dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], false);
+              }, 4000);
+            }
+          },
+          {
+            extend: "excel",
+            text: "Export Excel",
+            action: function(e, dt, button, config) {
+              dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], true); 
+              bowlerRosterexportData(dt,"excel","pagination/homeEvent.php");
+              setTimeout(function() {
+                dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], false);
+              }, 4000);
+            }
+          },
+          {
+            extend: "pdf",
+            text: "Export PDF",
+            action: function(e, dt, button, config) {
+              dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], true); 
+              bowlerRosterexportData(dt,"pdf","pagination/homeEvent.php");
+              setTimeout(function() {
+                dt.settings()[0].oApi._fnProcessingDisplay(dt.settings()[0], false);
+              }, 4000);
+            }
+          }
+        ],
+        order: [[0, "desc"]],
+        pageLength: 10,
+      });
+    }
+
+    loadEventTable();
+
+    $('#homeEvent').on('click', function() {
+      var sessionYear = $('#seasonYear2').val();
+      loadSeasonTourTable(sessionYear);
+    });
+
+  });
+
+
+  $("#teamRosterTwo").DataTable({
     processing: true,
     serverSide: true,
     ajax: {
-      url: "pagination/bowlers_transfer.php", // Replace with the correct PHP file path
+      url: "pagination/teamroster-table.php", // Replace with the correct PHP file path
       type: "GET",
     },
     columns: [
+      { data: "uba_id", orderable: true },
+      { data: "name", orderable: true },
+      { data: "nickname", orderable: true },
+      { data: "sanction_number", orderable: true },
+      { data: "entering_avg", orderable: true },
+      { data: "uba_average", orderable: true },
+      { data: "season_tour_avg", orderable: true },
+      { data: "office_held", orderable: true },
+      { data: "edit", orderable: true },
+    ],
+    dom: "lBfrtip",
+    buttons: [
+      {
+        extend: "csv",
+        text: "Export CSV",
+        action: function(e, dt, button, config) {
+          exportData(dt,'csv',"pagination/teamroster-table.php?");
+        }
+      },
+      {
+        extend: "excel",
+        text: "Export Excel",
+        action: function(e, dt, button, config) {
+          exportData(dt,"excel","pagination/teamroster-table.php?");
+  
+        }
+      }
+    ],
+    order: [[0, "asc"]],
+    pageLength: 10, 
+  });
+
+  function searchBowler(){
+    var bowlerName = $('#bowlerName').val();
+    independentBowler(bowlerName);
+    $('#searchBowlerSection').hide();
+    $('#tableBowlerSection').show();
+  }
+  $('#tableBowlerSection').hide();
+  function resetSearch(){
+    $('#searchBowlerSection').show();
+    $('#tableBowlerSection').hide();
+  }
+
+
+ function independentBowler(bowlerName){
+  var bowlernames = null;
+  if(bowlerName){
+    bowlernames = bowlerName
+  }
+  if ($.fn.DataTable.isDataTable('#independentBowlerList')) {
+    $('#independentBowlerList').DataTable().clear().destroy();
+  }
+  console.log('dasdadsada')
+  
+  $("#independentBowlerList").DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: "pagination/teamroster-table-bowler.php",
+      type: "POST",
+      data: function(d) {
+        d.bowlerName = bowlernames;
+      }
+    },
+    columns: [
       { data: "no", orderable: true },
-      { data: "date", orderable: true },
-      { data: "year", orderable: true },
-      { data: "event_name", orderable: true },
-      { data: "event_type", orderable: true },
+      { data: "name", orderable: true },
+      { data: "bowler_id", orderable: true },
       { data: "team", orderable: true },
-      { data: "game1", orderable: true },
-      { data: "game2", orderable: false },
-      { data: "game3", orderable: false },
+      { data: "add_to_team", orderable: true },
     ],
     dom: "lBfrtip",
     buttons: [],
-    order: [[0, "desc"]],
-    pageLength: 10,
+    order: [[0, "asc"]],
+    pageLength: 10, 
   });
+ }
+  
+  
 
   
   // Reusable function to handle exports using post method
-  function bowlerRosterexportData(dt, exportType,filePath) {
-    var params = dt.ajax.params();
-    params.exportType = exportType;
-    var searchValue = dt.search();
-    params.searchValue = searchValue;
-    var form = $('<form></form>').attr('method', 'POST').attr('action', filePath);
-    $.each(params, function(key, value) {
-      $('<input>').attr('type', 'hidden').attr('name', key).attr('value', value).appendTo(form);
-    });
-    $(form).appendTo('body').submit().remove();
-    return true
-  }
+function bowlerRosterexportData(dt, exportType,filePath) {
+  var params = dt.ajax.params();
+  params.exportType = exportType;
+  var searchValue = dt.search();
+  params.searchValue = searchValue;
+  var form = $('<form></form>').attr('method', 'POST').attr('action', filePath);
+  $.each(params, function(key, value) {
+    $('<input>').attr('type', 'hidden').attr('name', key).attr('value', value).appendTo(form);
+  });
+  $(form).appendTo('body').submit().remove();
+  return true
+}
 
 
   // Reusable function to handle exports using get method
@@ -695,36 +911,44 @@ function completeExportData(xhr){
 
 
 //  hide table some text and add table css
-const labelElement = document.querySelector(".uba-table .dataTables_wrapper .dataTables_length label");
-const selectElement = document.querySelector(".uba-table .dataTables_wrapper .dataTables_length select");
-const searchElement = document.querySelector(".uba-table .dataTables_wrapper .dataTables_filter label");
-const searchInputElement = document.querySelector(".uba-table .dataTables_wrapper .dataTables_filter input");
+// Select all .uba-table elements on the page
+document.addEventListener("DOMContentLoaded", function() {
+  const tables = document.querySelectorAll(".uba-table");
 
-if (selectElement) {
-    selectElement.style.marginRight = "9px";
-    selectElement.style.height = "40px";
-}
+  tables.forEach(table => {
+      const labelElement = table.querySelector(".dataTables_wrapper .dataTables_length label");
+      const selectElement = table.querySelector(".dataTables_wrapper .dataTables_length select");
+      const searchElement = table.querySelector(".dataTables_wrapper .dataTables_filter label");
+      const searchInputElement = table.querySelector(".dataTables_wrapper .dataTables_filter input");
 
-if (searchInputElement) {
-    searchInputElement.style.height = "40px";
-    searchInputElement.placeholder = "Search";
-}
+      if (selectElement) {
+          selectElement.style.marginRight = "9px";
+          selectElement.style.height = "40px";
+      }
 
-if (labelElement) {
-    const showText = labelElement.childNodes[0];
-    if (showText && showText.nodeType === Node.TEXT_NODE) {
-        showText.textContent = "";
-    }
+      if (searchInputElement) {
+          searchInputElement.style.height = "40px";
+          searchInputElement.placeholder = "Search";
+      }
 
-    const entriesText = labelElement.childNodes[2];
-    if (entriesText && entriesText.nodeType === Node.TEXT_NODE) {
-        entriesText.textContent = "";
-    }
-}
+      if (labelElement) {
+          const showText = labelElement.childNodes[0];
+          if (showText && showText.nodeType === Node.TEXT_NODE) {
+              showText.textContent = "";
+          }
 
-if (searchElement) {
-  const searchText = searchElement.childNodes[0];
-  if (searchText.nodeType === Node.TEXT_NODE) {
-    searchText.textContent = "";
-  }
-}
+          const entriesText = labelElement.childNodes[2];
+          if (entriesText && entriesText.nodeType === Node.TEXT_NODE) {
+              entriesText.textContent = "";
+          }
+      }
+
+      if (searchElement) {
+          const searchText = searchElement.childNodes[0];
+          if (searchText.nodeType === Node.TEXT_NODE) {
+              searchText.textContent = "";
+          }
+      }
+  });
+});
+

@@ -2,7 +2,7 @@
 include_once '../../baseurl.php';
 include_once '../../session.php';
 include_once '../../connect.php';
-require_once('../phpspreadsheet/vendor/autolopad.php');
+require_once('../phpspreadsheet/vendor/autoload.php');
 require_once('../../fpdf/fpdf.php'); 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;

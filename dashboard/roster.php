@@ -154,7 +154,8 @@ if (isset($_SESSION['success'])) {
                                 <div class="form-group">
                                     <select name="divisionSelected" id="divisionSelected" required>
                                         <option value="-" disabled selected>-</option>
-                                        <?php foreach ($divisionDeets as $division) { ?>
+                                        <?php usort($divisionDeets, function ($a, $b) { return strcmp($a['division'], $b['division']);});
+                                        foreach ($divisionDeets as $division) { ?>
                                             <option value="<?php echo $division['division']; ?>">
                                                 <?php echo $division['division']; ?>
                                             </option>

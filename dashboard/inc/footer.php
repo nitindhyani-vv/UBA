@@ -387,208 +387,7 @@
                 order: [[ 1, 'asc' ]]
             });
 
-            
-
-            // $('#submitted_rosters').DataTable({
-            //     dom: 'lBfrtip',
-            //     "aoColumns": [
-            //                 null,
-            //                 null,
-            //                 { "bSortable": false },
-            //                 null,
-            //                 { "bSortable": false }
-            //                 ],
-            //     buttons: [
-            //         'csv', 'excel', 'pdf'
-            //     ]
-            // });
-
-            $('#submitted_rosters_list').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            null
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf'
-                ],
-                order: [[ 1, 'asc' ]]
-            });
-
-
-
-            
-            // $('#nonactive_table_home').DataTable({
-            //      dom: 'lBfrtip',
-            //     "aoColumns": [
-            //     null,
-            //     null,
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 { "bSortable": false },
-            //                 { "bSortable": false }
-            //                 ],
-            //                  buttons: [
-            //         'csv', 'excel', 'pdf','colvis'],
-            //                 order: [[ 0, 'asc' ]],
-            //                 "searching": false
-            // });
-            
-            // $('#released_bowlers_table_home').DataTable({
-            //      dom: 'lBfrtip',
-            //     "aoColumns": [
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 { "bSortable": false },
-            //                 { "bSortable": false }
-            //                 ],
-            //                  buttons: [
-            //         'csv', 'excel', 'pdf','colvis'],
-            //                 order: [[ 0, 'asc' ]],
-            //                 "searching": false
-            // });
-
-            $('#bowlers_released_table_home').DataTable({
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-
-            
-
-            // $('#released_bowlers').DataTable({
-
-            //     dom: 'lBfrtip',
-            //     "aoColumns": [
-            //                 null,
-            //                 { "bSortable": false },
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 { "bSortable": false },
-            //                 { "bSortable": false },
-            //                 { "bSortable": false }
-            //                 ],
-            //     buttons: [
-            //         'csv', 'excel', 'pdf',
-            //     ],
-            //     order: [[ 0, 'asc' ]]
-            // });
-
-            
-
-
-            
-
-            // $('#president_table_home').DataTable({
-            //     "aoColumns": [
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 null,
-            //                 { "bSortable": false }
-            //                 ],
-            //                 order: [[ 0, 'asc' ]],
-            //                 "searching": false
-            // });
-
-            $('#owner_table_home').DataTable({
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false }
-                            ],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-
-            $('#transfer_table_home').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                             buttons: [
-                    'csv', 'excel', 'pdf','colvis'],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-
-            $('#nickname_table_home').DataTable({
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-
-            $('#teamRosterTwo').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            });
-
-            $('#independentBowlerList').DataTable({
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false }
-                            ],
-                            order: [[ 1, 'asc' ]]
-            });
-            
-            // $('#registrationTable').DataTable( {
+            // $('#teamRosterTwo').DataTable({
             //     dom: 'lBfrtip',
             //     "aoColumns": [
             //                 null,
@@ -599,8 +398,6 @@
             //                 null,
             //                 null,
             //                 null,
-            //                 { "bSortable": false },
-            //                 { "bSortable": false },
             //                 { "bSortable": false }
             //                 ],
             //     buttons: [
@@ -608,50 +405,18 @@
             // 'colvis'
             //     ],
             //     order: [[ 1, 'asc' ]]
-            // } );
-            
+            // });
 
-            $('#teamRoster').DataTable( {
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            } );
-
-             $('#divisionRoster').DataTable( {
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            });
+            // $('#independentBowlerList').DataTable({
+            //     "aoColumns": [
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 { "bSortable": false }
+            //                 ],
+            //                 order: [[ 1, 'asc' ]]
+            // });
 
             $('#table_1_seasons_me').DataTable({
                 dom: 'lBfrtip',
@@ -670,77 +435,7 @@
                 order: [[ 0, 'asc' ]]
             });
 
-            $('#table_1_seasons_es').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            });
-
-            // $('#team_officials').DataTable({
-            //     dom: 'lBfrtip',
-            //     "aoColumns": [
-            //                 null,
-            //                 null,
-            //                 { "bSortable": false },
-            //                 null
-            //                 ],
-            //                 buttons: [
-            //         'csv', 'excel', 'pdf',
-            // 'colvis'
-            //     ],
-            //     order: [[ 1, 'asc' ]]
-            // });
-
-            $('#table_1_events_home').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            null,
-                            { "bSortable": false },
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                            buttons: ['csv', 'excel', 'pdf','colvis'],
-                        order: [[ 0, 'asc' ]]
-            });
-
-        //     $('#table_1_seasons_home').DataTable({
-        //         dom: 'lBfrtip',
-        //         "aoColumns": [
-        //                     null,
-        //                     null,
-        //                     { "bSortable": false },
-        //                     null,
-        //                     { "bSortable": false },
-        //                     null,
-        //                     null,
-        //                     { "bSortable": false },
-        //                     { "bSortable": false }
-        //                     ],
-        //                     buttons: ['csv', 'excel', 'pdf','colvis'],
-        // order: [[ 0, 'asc' ]]
-        //     });
+            
         });
     </script>
 

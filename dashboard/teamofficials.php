@@ -23,7 +23,7 @@ include 'inc/header.php';
                 <div class="row">
                     <div class="col-12 uba-table">
                         <h4>Team Presidents & Owners</h4>
-                        <table  class="display" id="team_official">
+                        <table  class="display" id="teamOfficial">
                             <thead>
                                 <tr>
                                     <th>No.</th>
