@@ -123,7 +123,15 @@ include_once '../baseurl.php';
             box-shadow: 0 -2em;
             height: 5em;
         }
-    }
+        .disable-delete-btn{
+            padding: 8px 30px;
+            background-color: black;
+            color: white !important;
+            transition: 0.5s ease;
+            -moz-transition: 0.5s ease;
+            -o-transition: 0.5s ease;
+            -webkit-transition: 0.5s ease;
+        }
     </style>
 </head>
 

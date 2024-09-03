@@ -30,7 +30,7 @@
             $sql->execute([':approved' => $approved]);
             $ownerClaims = $sql->fetchAll();
 
-            $sql = $db->prepare("SELECT * FROM `bowlerTransfers` WHERE `approved` = :approved");
+            $sql = $db->prepare("SELECT * FROM `bowlerTransfers` WHERE `approved` = :approved group by bowlerid ");
             $sql->execute([':approved' => $approved]);
             $transferClaims = $sql->fetchAll();
 
