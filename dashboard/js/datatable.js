@@ -401,7 +401,7 @@ $("#registrationTable").DataTable({
         extend: "excel",
         text: "Export Excel",
         action: function(e, dt, button, config) {
-          exportData(dt,"excel","pagination/bowler_addedby_team_presedent.php?");
+        exportData(dt,"excel","pagination/bowler_addedby_team_presedent.php?");
 
         }
       },
@@ -862,7 +862,9 @@ function exportData(dt, exportType,filePath) {
   var params = dt.ajax.params();
   params.exportType = exportType;
   var queryString = $.param(params);
-  window.location.href = filePath + queryString;
+  console.log('params',params);
+  console.log('queryString',queryString);
+  // window.location.href = filePath + queryString;
 }
 
 

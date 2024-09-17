@@ -97,7 +97,7 @@ foreach ($dataFetched as $singleScoreData) {
     $getSeasonTourAvg = getSeasonTourAvg($singleScoreData['bowlerid']);
     $row['uba_id'] = $singleScoreData['bowlerid'] ?? '-';
     $row['name'] = $singleScoreData['name'] ?? '-';
-    $row['nickname'] = $presidentBowler['nickname1'] ?? '-';
+    $row['nickname'] = $singleScoreData['nickname1'] ?? '-';
     $row['sanction_number'] = $singleScoreData['sanction'] ?? '-';
     $row['entering_avg'] = $singleScoreData['enteringAvg'] ?? '-';
     $row['uba_average'] = $singleScoreData['ubaAvg'] ?? '-';
@@ -177,7 +177,6 @@ function getSeasonTourAvg($bowlerID){
     $year = substr( $currentYear, -2);
 
     // echo "SELECT * FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerID' AND YEAR(eventdate) BETWEEN '$preYear' AND '$currentYear' ORDER BY `eventdate` DESC";
-        
     $avrgseason = $db->prepare("SELECT * FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerID' AND YEAR(eventdate) BETWEEN '$nextYear' AND '$currentYear' AND year='$nextYear/$year' ORDER BY `eventdate` DESC");
     $avrgseason->execute();
     $avrgseasonAll = $avrgseason->fetchAll();

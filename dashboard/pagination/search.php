@@ -55,7 +55,6 @@ if($type == 'by_name'){
 
 }else{
     $sql = $db->prepare("SELECT bowlerid FROM `bowlers` WHERE `team` = '$teamName'");
-    // $teamName = "%$teamName%"; // Add wildcards to the team name
     $sql->execute();
     $teamBowlers = $sql->fetchAll();
     $tourcount = 0; $eventCount = 0;
@@ -76,13 +75,17 @@ echo json_encode($response);
 function currentTourGame($bowlerID){
     $database = new Connection();
     $db = $database->openConnection();
+    $currentYear = date("Y"); 
+    $nextYear=date("y",strtotime("+1 year"));
+    $year = substr( $currentYear, -2);
+
     // $sql = $db->prepare("SELECT bowlerid,game1,game2,game3 FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerID' ORDER BY `id` DESC  ");
     $sql = $db->prepare("SELECT
     bowlerid,
     COUNT(CASE WHEN game1 IS NOT NULL AND game1 <> '' THEN 1 END) AS game1_count,
     COUNT(CASE WHEN game2 IS NOT NULL AND game2 <> '' THEN 1 END) AS game2_count,
     COUNT(CASE WHEN game3 IS NOT NULL AND game3 <> '' THEN 1 END) AS game3_count
-    FROM bowlerdataseason WHERE bowlerid = '$bowlerID' GROUP BY bowlerid ORDER BY id DESC");
+    FROM bowlerdataseason WHERE bowlerid = '$bowlerID' AND year='$currentYear/$nextYear' GROUP BY bowlerid ORDER BY id DESC");
     $sql->execute();
     $allTourGame = $sql->fetchAll();
 
@@ -90,13 +93,16 @@ function currentTourGame($bowlerID){
     if(!empty($allTourGame)){
         $count = (int) $allTourGame[0]['game1_count'] + (int) $allTourGame[0]['game2_count'] + $allTourGame[0]['game3_count'];
     }
-    // return ["data"=>$finalData,"count"=>$count];
+    // return ["year"=>$year,"currentYear"=>$currentYear,"nextYear"=>$nextYear];
     return $count;
 }
 
 function currentEventGame($bowlerID){
     $database = new Connection();
     $db = $database->openConnection();
+    $currentYear = date("Y"); 
+    $nextYear=date("y",strtotime("+1 year"));
+    $year = substr( $currentYear, -2);
     // $sql = $db->prepare("SELECT bowlerid,game1,game2,game3,game4,game5 FROM `bowlerdata` WHERE `bowlerid` = '$bowlerID' ORDER BY `event` ASC");
     $sql = $db->prepare("SELECT
     bowlerid,
@@ -105,7 +111,7 @@ function currentEventGame($bowlerID){
     COUNT(CASE WHEN game3 IS NOT NULL AND game3 <> '' THEN 1 END) AS game3_count,
     COUNT(CASE WHEN game4 IS NOT NULL AND game4 <> '' THEN 1 END) AS game4_count,
     COUNT(CASE WHEN game5 IS NOT NULL AND game5 <> '' THEN 1 END) AS game5_count
-    FROM bowlerdata WHERE bowlerid = '$bowlerID' ORDER BY event DESC");
+    FROM bowlerdata WHERE bowlerid = '$bowlerID' AND year='$currentYear/$nextYear' ORDER BY event DESC");
     $sql->execute();
     $allEventGame = $sql->fetchAll();
 
