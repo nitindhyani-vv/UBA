@@ -14,14 +14,13 @@ try{
     $start = isset($_GET['start']) ? intval($_GET['start']) : 0; 
     $draw = isset($_GET['draw']) ? intval($_GET['draw']) : 1;
     $columns = [
-        0 => 'id',
-        1 => 'bowlerid',
-        2 => 'name',
+        0 => 'bowlerid',
+        1 => 'name',
         2 => 'nickname1',
-        2 => 'sanction',
-        2 => 'enteringAvg',
-        2 => 'ubaAvg',
-        2 => 'officeheld',
+        3 => 'sanction',
+        4 => 'enteringAvg',
+        5 => 'ubaAvg',
+        6 => 'officeheld',
     ];
     
     $database = new Connection();
