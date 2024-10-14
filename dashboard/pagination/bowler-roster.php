@@ -14,13 +14,13 @@ $limit = isset($_POST['length']) ? intval($_POST['length']) : 10;
 $start = isset($_POST['start']) ? intval($_POST['start']) : 0; 
 $draw = isset($_POST['draw']) ? intval($_POST['draw']) : 1;
 
-if(isset($_POST['searchValue'])){
-    $searchValue = isset($_POST['searchValue']) ? $_POST['searchValue'] : '';
-}else{
+// if(isset($_POST['searchValue'])){
+//     $searchValue = isset($_POST['searchValue']) ? $_POST['searchValue'] : '';
+// }else{
     $searchValue = isset($_POST['search']['value']) ? $_POST['search']['value'] : '';
     $orderIndex = isset($_POST['order'][0]['column']) ? intval($_POST['order'][0]['column']) : 0;
     $orderDir = isset($_POST['order'][0]['dir']) ? $_POST['order'][0]['dir'] : 'DESC';
-}
+// }
 
 try {
     $database = new Connection();
@@ -49,7 +49,10 @@ try {
 
         $teamName = $_POST['teamSelected'];
         if(isset($_POST['exportType'])){
-            $sql = $db->prepare("SELECT * FROM `bowlers` WHERE `team` = :teamName AND `active` > 0 $searchQuery ORDER BY $orderColumn $orderDir");
+            $orderColumn = 'name';
+            $orderDir = 'asc';
+            
+            $sql = $db->prepare("SELECT * FROM `bowlers` WHERE `team` = :teamName AND `active` > 0 $searchQuery ORDER BY $orderColumn $orderDir LIMIT 100");
             $sql->bindParam(':teamName', $teamName, PDO::PARAM_STR);
                 if (!empty($searchValue)) {
                     $sql->bindParam(':searchValue', $searchValue);
@@ -115,6 +118,8 @@ try {
         // $column = 'team.'.$orderColumn;
         $divisionSelected = $_POST['divisionSelected'];
         if(isset($_POST['exportType'])){
+            $orderColumn = 'team';
+            $orderDir = 'asc';
             $sql = $db->prepare(" SELECT bowlers.* FROM `teams` INNER JOIN `bowlers` ON bowlers.team = teams.teamname WHERE 
             teams.division = :divisionSelected AND bowlers.active > 0 $searchQuery  ORDER BY $orderColumn $orderDir");
         }else{
@@ -182,7 +187,6 @@ if (isset($_POST['teamSelected']) || isset($_SESSION['rosterSelected'])) {
         $row['ubaAvg'] = $bowlers['ubaAvg']?? 0;
         $row['ubaAvgseasontourAvg'] = $seasontourAvg ?? 0;
             if ($_SESSION['userrole'] == 'admin') {
-                // $row['reinstate'] = "<a href='editBowler.php?id={$bowlers['id']}'><i class='fas fa-pen-square'></i></a>";
                 $row['reinstate'] = "<a href='editBowler.php?id={$bowlers['id']}'><i class='fas fa-pen-square'></i></a>";
             }
         $data[] = $row;
@@ -269,18 +273,19 @@ function exportExcel($data,$type,$name){
 
     $rowNum = 2;
     foreach ($data as $row) {
-        $getSeasonTourAvg = getSeasonTourAvg($row['bowlerid']);
-        $sheet->setCellValue('A' . $rowNum, $row['bowlerid']);
-        $sheet->setCellValue('B' . $rowNum, $row['name']);
-        $sheet->setCellValue('C' . $rowNum, $row['nickname1']);
+        $getSeasonTourAvg = isset($row['bowlerid']) ? getSeasonTourAvg($row['bowlerid']) : null;
+
+        $sheet->setCellValue('A' . $rowNum, isset($row['bowlerid']) ? $row['bowlerid'] : null );
+        $sheet->setCellValue('B' . $rowNum, isset($row['name']) ? $row['name'] : null);
+        $sheet->setCellValue('C' . $rowNum, isset($row['nickname1']) ? $row['nickname1'] : null);
         if($type === 'division-roster'){
-            $sheet->setCellValue('D' . $rowNum, $row['team']);
+            $sheet->setCellValue('D' . $rowNum, isset($row['team']) ? $row['team'] : null);
         }else{
-            $sheet->setCellValue('D' . $rowNum, $row['officeheld']);
+            $sheet->setCellValue('D' . $rowNum, isset($row['officeheld']) ? $row['officeheld'] : null);
         }
-        $sheet->setCellValue('E' . $rowNum, $row['sanction']);
-        $sheet->setCellValue('F' . $rowNum, $row['enteringAvg']);
-        $sheet->setCellValue('G' . $rowNum, $row['ubaAvg']);
+        $sheet->setCellValue('E' . $rowNum, isset($row['sanction']) ? $row['sanction'] : null);
+        $sheet->setCellValue('F' . $rowNum, isset($row['enteringAvg']) ? $row['enteringAvg'] : null);
+        $sheet->setCellValue('G' . $rowNum, isset($row['ubaAvg']) ? $row['ubaAvg'] : null);
         $sheet->setCellValue('H' . $rowNum, $getSeasonTourAvg);
         $rowNum++;
     }
@@ -297,21 +302,6 @@ function exportPDF($data,$type,$name){
     $pdf->AddPage();
     $pdf->SetFont('Arial', 'B', 12);
 
-    // Define fixed column widths
-    // $columnWidths = array(
-    //     'UBA ID' => 25,
-    //     'Name' => 45,
-    //     // 'Nickname' => 30,
-    //     if($type === 'division-roster'){
-    //     'Team' => 25,
-    //     }else{
-    //     'Office Held' => 25,
-    //     }
-    //     'Sanction #' => 40,
-    //     'Entering Avg' => 15,
-    //     'UBA Avg' => 15,
-    //     'ST Avg' => 15
-    // );
     $columnWidths['UBA ID'] = 25;
     $columnWidths['Name'] = 45;
     if ($type === 'division-roster') {
@@ -352,23 +342,12 @@ function exportPDF($data,$type,$name){
     // Add data rows
     foreach ($data as $row) {
         $getSeasonTourAvg = getSeasonTourAvg($row['bowlerid']);
-        // $rowData = array(
-        //     'UBA ID' => $row['bowlerid'],
-        //     'Name' => $row['name'],
-        //     // 'Nickname' => $row['nickname1'],
-        //     'Office Held' => $row['officeheld'],
-        //     'Sanction #' => $row['sanction'],
-        //     'Entering Avg' => $row['enteringAvg'],
-        //     'UBA Avg' => $row['ubaAvg'],
-        //     'ST Avg' => $getSeasonTourAvg
-        // );
-
         $rowData['UBA ID'] = $row['bowlerid'];
         $rowData['Name'] = $row['name'];
         if ($type === 'division-roster') {
-        $rowData['Team'] = $row['team'];
+            $rowData['Team'] = $row['team'];
         } else {
-        $rowData['Office Held'] = $row['officeheld'];
+            $rowData['Office Held'] = $row['officeheld'];
         }
         $rowData['Sanction #'] = $row['sanction'];
         $rowData['Entering Avg'] = $row['enteringAvg'];
@@ -407,22 +386,6 @@ function exportPDF($data,$type,$name){
     // Output the PDF
     $pdf->Output('I', 'bowler-roster.pdf');
 }
-
-
-//  Division Selected export section
-// function divisionSelectedexportCSV($data){
-//     header('Content-Type: text/csv');
-//     header('Content-Disposition: attachment; filename="bowler-roster.csv"');
-//     $output = fopen("php://output", "w");
-//     fputcsv($output, array('UBA ID', 'Name', 'Nickname','Team','Sanction #','Entering Avg','UBA Avg','ST Avg'));
-//     foreach ($data as $row) {
-//         $getSeasonTourAvg = getSeasonTourAvg($row['bowlerid']);
-//         $rowRaw = [$row['bowlerid'],$row['name'],$row['nickname1'],$row['team'],$row['sanction'],$row['enteringAvg'],$row['ubaAvg'],$getSeasonTourAvg];
-//         fputcsv($output, $rowRaw);
-//     }
-//     fclose($output);
-// }
-
 
 function getSeasonTourAvg($bowlerID){
     // $bowlerID = $bowlers['bowlerid'];

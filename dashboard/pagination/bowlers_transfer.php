@@ -97,7 +97,7 @@ foreach ($dataFetched as $rowData) {
     $row['from'] = $rowData['fromteam'] ?? '-';
     $row['to'] = $rowData['toteam'] ?? '-';
     $row['date_time'] = $rowData['claimtime'] ?? '-';
-    $row['approve'] =  "<a class='approve' onclick='showConfirmation('transfer','".$rowData['bowlerid']."','".$rowData['id']."')'><i class='fas fa-check'></i></a>";
+    $row['approve'] =  "<a class='approve' onclick='showConfirmation(`transfer`,`".$rowData['bowlerid']."`,`".$rowData['id']."`)'><i class='fas fa-check'></i></a>";
     $row['decline'] =  "<a class='decline' href='process/acceptTransfer.php?id=n&bowler={$rowData['bowlerid']}&tab={$rowData['id']}'><i class='fas fa-times'></i></a>";
     $data[] = $row;
 }

@@ -101,7 +101,7 @@ foreach ($dataFetched as $singleScoreData) {
     $row['nickname'] = $singleScoreData['nickname1'] ?? '-';
     $row['sanction'] = $singleScoreData['sanction'] ?? '-';
     $row['createAt'] = $singleScoreData['create_at'] ?? '-';
-    $row['approve'] =  "<a style='cursor: pointer;' class='approve' onclick='showConfirmationAddBowler('add','".$singleScoreData['bowlerid']."')'><i class='fas fa-check'></i></a>";
+    $row['approve'] =  "<a style='cursor: pointer;' class='approve' onclick='showConfirmationAddBowler(`add`,`".$singleScoreData['bowlerid']."`)'><i class='fas fa-check'></i></a>";
     $row['decline'] =  "<a class='decline' href='process/activateBowler.php?id=n&bowler={$singleScoreData['bowlerid']}'><i class='fas fa-times'></i></a>";
     $data[] = $row;
 }

@@ -208,6 +208,17 @@ table th {
     color: white;
     border-color: #a54c00;
 }
+
+.dataTables_length label {
+    display: table !important;
+}
+
+button, select {
+    text-transform: none;
+    border-color: #999999;
+    padding: 10px;
+    background-color: #ececec;
+}
 </style>
 
 <!-- bootsrap modal -->

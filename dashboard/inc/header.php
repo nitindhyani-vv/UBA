@@ -132,6 +132,18 @@ include_once '../baseurl.php';
             -o-transition: 0.5s ease;
             -webkit-transition: 0.5s ease;
         }
+    }
+    /* .container-fluid {
+        padding-right: unset !important; 
+        padding-left: unset !important;
+    }
+    .uba-table{
+        padding-right: 5px !important; 
+        padding-left: 5px !important;
+    } */
+    table{
+        width: 100% !important;
+    }
     </style>
 </head>
 

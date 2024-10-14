@@ -15,7 +15,7 @@
         if ($bowlerName != '') {
             $searchTerm = $bowlerName;
             $column = 'name';
-            $sql = $db->prepare("SELECT * FROM `bowlers` WHERE `$column` LIKE '%$searchTerm%' ORDER BY name ASC  ");
+            $sql = $db->prepare("SELECT * FROM `bowlers` WHERE `active` > 0 AND `$column` LIKE '%$searchTerm%' ORDER BY name ASC  ");
             $sql->execute();
 
         } else {

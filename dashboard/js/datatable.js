@@ -112,7 +112,7 @@ $("#team_roster").DataTable({
         }
       }
     ],
-    order: [[0, "asc"]],
+    order: [[2, "asc"]],
     pageLength: 10,
     
   });
@@ -283,7 +283,7 @@ $("#registrationTable").DataTable({
     processing: true,
     serverSide: true,
     ajax: {
-      url: "pagination/team-official.php", // Replace with the correct PHP file path
+      url: "pagination/team-official.php",
       type: "GET",
       data: function(d) {
         console.log(d);
@@ -862,9 +862,7 @@ function exportData(dt, exportType,filePath) {
   var params = dt.ajax.params();
   params.exportType = exportType;
   var queryString = $.param(params);
-  console.log('params',params);
-  console.log('queryString',queryString);
-  // window.location.href = filePath + queryString;
+  window.location.href = filePath + queryString;
 }
 
 

@@ -10,7 +10,7 @@
 
         $data = array();
         $singleEvent = array();
-        $sql = $db->prepare("SELECT * FROM `bowlers` WHERE `team` = '$teamName' ORDER BY `name` ASC");
+        $sql = $db->prepare("SELECT * FROM `bowlers` WHERE `active` > 0 AND `team` = '$teamName' ORDER BY `name` ASC");
        // echo "SELECT * FROM `bowlers` WHERE `team` = '$teamName' GROUP BY `name` ";
         $sql->execute();
         $dataFetched = $sql->fetchAll();
@@ -50,8 +50,10 @@
             $singleEvent['name'] = $name;
             $singleEvent['team'] = $event['team'];
             $singleEvent['nickname'] = $nickname1;
-            $singleEvent['tour_game_count'] = currentTourGame($event['bowlerid']);
-            $singleEvent['event_count'] = currentEventGame($event['bowlerid']);
+            // $singleEvent['tour_game_count'] = currentTourGame($event['bowlerid']);
+            // $singleEvent['event_count'] = currentEventGame($event['bowlerid']);
+            $singleEvent['tour_game_count'] = 0;
+            $singleEvent['event_count'] = 0;
             array_push($data, $singleEvent);
 
             $singleEvent = array();
@@ -76,11 +78,11 @@
         COUNT(CASE WHEN game1 IS NOT NULL AND game1 <> '' THEN 1 END) AS game1_count,
         COUNT(CASE WHEN game2 IS NOT NULL AND game2 <> '' THEN 1 END) AS game2_count,
         COUNT(CASE WHEN game3 IS NOT NULL AND game3 <> '' THEN 1 END) AS game3_count
-        FROM bowlerdataseason WHERE bowlerid = '$bowlerID' AND year='$currentYear/$nextYear'GROUP BY bowlerid ORDER BY id DESC");
+        FROM bowlerdataseason WHERE bowlerid = '$bowlerID' AND year='$currentYear/$nextYear' GROUP BY bowlerid ORDER BY id DESC");
         $sql->execute();
         $allTourGame = $sql->fetchAll();
     
-        $count = 0; $finalData = [];
+        $count = 0;
         if(!empty($allTourGame)){
             $count = (int) $allTourGame[0]['game1_count'] + (int) $allTourGame[0]['game2_count'] + $allTourGame[0]['game3_count'];
         }

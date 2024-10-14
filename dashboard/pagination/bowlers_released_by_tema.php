@@ -101,7 +101,7 @@ foreach ($dataFetched as $rowData) {
     $row['released_from'] = $rowData['team'] ?? '-';
     $row['status'] = $rowData['currentstatus'] ?? '-';
     $row['date'] = $rowData['datesubmitted'] ?? '-';
-    $row['close'] =  "<a style='cursor: pointer;' onclick='approveRelease('".$rowData['bowlerid']."')'><i class='fas fa-times decline'></i></a>";
+    $row['close'] =  "<a style='cursor: pointer;' onclick='approveRelease(`".$rowData['bowlerid']."`)'><i class='fas fa-times decline'></i></a>";
     $data[] = $row;
 }
 
