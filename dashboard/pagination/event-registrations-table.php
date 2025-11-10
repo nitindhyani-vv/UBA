@@ -1,0 +1,78 @@
+<?php
+include_once '../../baseurl.php';
+include_once '../../session.php';
+include_once '../../connect.php';
+
+$limit = isset($_GET['length']) ? intval($_GET['length']) : 10;
+$start = isset($_GET['start']) ? intval($_GET['start']) : 0; 
+$draw = isset($_GET['draw']) ? intval($_GET['draw']) : 1;
+
+$database = new Connection();
+$db = $database->openConnection();
+
+$searchValue = isset($_GET['search']['value']) ? $_GET['search']['value'] : '';
+$columns = [
+    0 => 'id',
+    1 => 'eventname',
+    2 => 'squad',
+    3 => 'bowler',
+    4 => 'paymentprocessed'
+];
+// Building the search query
+$searchQuery = "";
+if (!empty($searchValue)) {
+    $searchValue = "%$searchValue%";
+    $searchQuery = " AND (eventname LIKE :searchValue OR bowlerid LIKE :searchValue OR bowler LIKE :searchValue OR squad LIKE :searchValue)";
+}
+
+$orderIndex = isset($_GET['order'][0]['column']) ? intval($_GET['order'][0]['column']) : 0;
+$orderDir = isset($_GET['order'][0]['dir']) ? $_GET['order'][0]['dir'] : 'DESC';
+$orderColumn = isset($columns[$orderIndex]) ? $columns[$orderIndex] : 'id';
+
+// Fetch total records count
+$stmt = $db->prepare("SELECT COUNT(*) as count FROM eventregistrations WHERE 1=1 $searchQuery");
+if (!empty($searchValue)) {
+    $stmt->bindParam(':searchValue', $searchValue);
+}
+$stmt->execute();
+$totalRecords = $stmt->fetchColumn();
+
+
+$sql = "SELECT * FROM `eventregistrations` WHERE 1=1 $searchQuery ORDER BY $orderColumn $orderDir LIMIT :start, :limit";
+$stmt = $db->prepare($sql);
+if (!empty($searchValue)) {
+    $stmt->bindParam(':searchValue', $searchValue);
+}
+$stmt->bindParam(':start', $start, PDO::PARAM_INT);
+$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+$stmt->execute();
+$dataFetched = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+$data = [];
+$i = $start + 1;
+foreach ($dataFetched as $bowlers) {
+    $paymentvalue= null;
+    if($bowlers['paymentprocessed'] == 0){
+        $paymentvalue= 'Not Cleared';
+    } else {
+        $paymentvalue= 'Cleared';
+    }
+    $row['no'] = $i++; 
+    $row['event'] = $bowlers['eventname'];;
+    $row['squad'] = $bowlers['squad'];
+    $row['bowler'] = $bowlers['bowler'];
+    $row['payment'] = $paymentvalue;
+    $data[] = $row;
+}
+
+$response = [
+    "draw" => $draw,
+    "recordsTotal" => $totalRecords,
+    "recordsFiltered" => $totalRecords,
+    "data" => $data
+];
+
+header('Content-Type: application/json');
+echo json_encode($response);
+?>

@@ -16,8 +16,9 @@
             $currentYear =date("Y"); 
             $nextYear= date("Y",strtotime("+1 year"));
             $year = substr( $nextYear, -2);
+            
         	$sql = $db->prepare("SELECT * FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerID'  AND YEAR(eventdate) BETWEEN '$currentYear' AND '$nextYear' AND year='$currentYear/$year' ORDER BY `eventdate` DESC");
-        		
+        	//echo 	"SELECT * FROM `bowlerdataseason` WHERE `bowlerid` = '$bowlerID'  AND YEAR(eventdate) BETWEEN '$currentYear' AND '$nextYear' AND year='$currentYear/$year' ORDER BY `eventdate` DESC";
         	
             $sql->execute();
             $dataFetched = $sql->fetchAll();

@@ -4,22 +4,29 @@
     </div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script>
+        // Pass the user role to JavaScript
+        var userRole = '<?php echo $_SESSION['userrole']; ?>';
+    </script>
+    
     <script src="../js/jquery.js"></script>
     <script src="../js/jquery-ui.min.js"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
     <!-- <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script> -->
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+    <script src="js/dataTables.buttons.min.js"></script>
+    <script src="js/buttons.flash.min.js"></script>
+    <script src="js/jszip.min.js"></script>
+    <script src="js/pdfmake.min.js"></script>
+    <script src="js/vfs_fonts.js"></script>
+    <script src="js/buttons.html5.min.js"></script>
+    <script src="js/buttons.print.min.js"></script>
+    <script src="js/buttons.colVis.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/datatable.js"></script>
     
     <script>
         // Pass the user role to JavaScript
@@ -386,269 +393,36 @@
                 order: [[ 1, 'asc' ]]
             });
 
-            
+            // $('#teamRosterTwo').DataTable({
+            //     dom: 'lBfrtip',
+            //     "aoColumns": [
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 { "bSortable": false }
+            //                 ],
+            //     buttons: [
+            //         'csv', 'excel', 'pdf',
+            // 'colvis'
+            //     ],
+            //     order: [[ 1, 'asc' ]]
+            // });
 
-            $('#submitted_rosters').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            null,
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf'
-                ]
-            });
-
-            $('#submitted_rosters_list').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            null
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf'
-                ],
-                order: [[ 1, 'asc' ]]
-            });
-
-
-
-            
-            $('#nonactive_table_home').DataTable({
-                 dom: 'lBfrtip',
-                "aoColumns": [
-                null,
-                null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                             buttons: [
-                    'csv', 'excel', 'pdf','colvis'],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-            
-            $('#released_bowlers_table_home').DataTable({
-                 dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                             buttons: [
-                    'csv', 'excel', 'pdf','colvis'],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-
-            $('#bowlers_released_table_home').DataTable({
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-
-            
-
-            $('#released_bowlers').DataTable({
-
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            { "bSortable": false },
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 0, 'asc' ]]
-            });
-
-            
-
-            $('#president_table_home').DataTable({
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false }
-                            ],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-
-            $('#owner_table_home').DataTable({
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false }
-                            ],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-
-            $('#transfer_table_home').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                             buttons: [
-                    'csv', 'excel', 'pdf','colvis'],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-
-            $('#nickname_table_home').DataTable({
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                            order: [[ 0, 'asc' ]],
-                            "searching": false
-            });
-
-            $('#teamRosterTwo').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            });
-
-            $('#independentBowlerList').DataTable({
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false }
-                            ],
-                            order: [[ 1, 'asc' ]]
-            });
-            
-            $('#registrationTable').DataTable( {
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            } );
-            
-
-            $('#teamRoster').DataTable( {
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            ...(userRole === 'admin' ? [{ "bSortable": false }] : [])
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            } );
-
-             $('#divisionRoster').DataTable( {
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            });
+            // $('#independentBowlerList').DataTable({
+            //     "aoColumns": [
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 null,
+            //                 { "bSortable": false }
+            //                 ],
+            //                 order: [[ 1, 'asc' ]]
+            // });
 
             $('#table_1_seasons_me').DataTable({
                 dom: 'lBfrtip',
@@ -667,77 +441,7 @@
                 order: [[ 0, 'asc' ]]
             });
 
-            $('#table_1_seasons_es').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            null,
-                            null,
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            });
-
-            $('#team_officials').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            null
-                            ],
-                            buttons: [
-                    'csv', 'excel', 'pdf',
-            'colvis'
-                ],
-                order: [[ 1, 'asc' ]]
-            });
-
-            $('#table_1_events_home').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            null,
-                            { "bSortable": false },
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                            buttons: ['csv', 'excel', 'pdf','colvis'],
-                        order: [[ 0, 'asc' ]]
-            });
-
-            $('#table_1_seasons_home').DataTable({
-                dom: 'lBfrtip',
-                "aoColumns": [
-                            null,
-                            null,
-                            { "bSortable": false },
-                            null,
-                            { "bSortable": false },
-                            null,
-                            null,
-                            { "bSortable": false },
-                            { "bSortable": false }
-                            ],
-                            buttons: ['csv', 'excel', 'pdf','colvis'],
-        order: [[ 0, 'asc' ]]
-            });
+            
         });
     </script>
 

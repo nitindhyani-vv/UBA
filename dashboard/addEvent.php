@@ -38,7 +38,7 @@
     <div class="users">
         <?php echo $msg; ?>
         
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
                     <h4>Add Event</h4>
