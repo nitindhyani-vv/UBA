@@ -1,0 +1,87 @@
+.eventgamesList .games.gamesHeading {
+    background: #00121c !important;
+    border-bottom: 2px solid white;
+    border-top: 2px solid white;
+}
+
+.games.odd {
+    background: #525252;
+}
+div#deux {
+    background: #002335;
+}
+
+div#tre {
+    background: #002335;
+}
+
+div#deux:hover {
+    background: #00121C;
+    border: 1px solid white;
+}
+
+div#tre:hover {
+    background: #00121C;
+    border: 1px solid white;
+}
+
+[data-toggle="collapse"] .fa:before {
+    content: "\f13a";
+}
+
+[data-toggle="collapse"].collapsed .fa:before {
+    content: "\f139";
+
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    text-align: center;
+    padding: 8px;
+}
+
+.games.gamesHeading {
+    overflow-x: auto;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background: #343434 !important;
+}
+
+tr.session.evenn {
+    background: #525252;
+}
+
+.sesson-year {
+    padding: 6px;
+    padding-left: 30px;
+}
+
+select#cars {
+    padding: 6px;
+}
+
+.session-button {
+    padding: 3px 10px;
+    background: #E6E6E6;
+}
+
+.loader {
+    width: 55px;
+    height: 51px;
+}
+
+.info {
+    text-align: center;
+}
+
+.teaminfo {
+    text-align: center;
+}

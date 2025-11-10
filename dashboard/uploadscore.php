@@ -3,10 +3,11 @@
     include_once '../session.php';
     include_once '../connect.php';
 
-    $userroleArray = ['admin','staff'];
-
-    if(in_array($userroleArray,$_SESSION['userrole'])){
-        header("Location: /dashboard/home.php");
+    $userroleArray = array('admin', 'staff');
+ 
+    if (!in_array($_SESSION['userrole'], $userroleArray)) {
+        header("Location:  ".$base_url."/dashboard/home.php");
+        exit(); 
     }
 
     // if($_SESSION['userrole'] != 'staff'){

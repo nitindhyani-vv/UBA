@@ -7,19 +7,19 @@
         header("Location: ".$base_url."/dashboard/home.php");
     }
 
-    try {
-        $database = new Connection();
-        $db = $database->openConnection();
+    // try {
+    //     $database = new Connection();
+    //     $db = $database->openConnection();
 
-        $sql = $db->prepare("SELECT * FROM `teams` ORDER BY `rostersubmissiondate` DESC");
-        $sql->execute();
-        // $sql->execute();
-        $teamDeets = $sql->fetchAll();
+    //     $sql = $db->prepare("SELECT * FROM `teams` ORDER BY `rostersubmissiondate` DESC");
+    //     $sql->execute();
+    //     // $sql->execute();
+    //     $teamDeets = $sql->fetchAll();
 
 
-    } catch (PDOException $e) {
-        echo "There was some problem with the connection: " . $e->getMessage();
-    }
+    // } catch (PDOException $e) {
+    //     echo "There was some problem with the connection: " . $e->getMessage();
+    // }
 
     $title = 'Submitted Team Rosters';
 
@@ -32,83 +32,36 @@
     } else {
         $msg = '';
     }
-
-
-
 ?>
 
 <div class="users">
     <?php echo $msg; ?>
-
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-
+            <div class="col-12  uba-table">
                 <h4>Team Rosters - Submitted1</h4>
                 <p>Click on the Team name to view the submitted roster for that team</p>
                 <hr>
 
-
-                <table id="submitted_rosters" class="display">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Team</th>
-                        <th>Roster Submitted</th>
-                        <th>Submitted By</th>
-                        <th>Submitted On</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                                    $i = 1;
-                                    foreach ($teamDeets as $team) {
-                                ?>
-                    <tr>
-                        <td>
-                            <?php echo $i; ?>
-                        </td>
-                        <td>
-                            <a href="submittedrosterlist.php?id=<?php echo $team['id'];?>">
-                                <?php echo $team['teamname']; ?>
-                            </a>
-                        </td>
-                        <td>
-                            <?php if($team['rostersubmitted'] == 1) {echo 'Yes';} else {echo 'No';}; ?>
-                        </td>
-                        <td>
-                            <?php if($team['submittedby'] == 'Team') {echo 'Team';} else {echo 'Auto';};?>
-                        </td>
-                        <td>
-                        <?php
-                            //Our YYYY-MM-DD date.
-                            $ymd = $team['rostersubmissiondate'];
-                            //Convert it into a timestamp.
-                            $timestamp = strtotime($ymd);
-                            //Convert it to DD-MM-YYYY
-                            $dmy = date("m-d-Y H:m:s", $timestamp);
-                            //Echo it
-                            echo $dmy;
-                        ?>
-                        </td>
-                    </tr>
-                    <?php
-                        $i++;
-                        }
-                    ?>
-                </tbody>
-            </table>
-
+                <table class="display" id="submittedrosters">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Team</th>
+                            <th>Roster Submitted</th>
+                            <th>Submitted By</th>
+                            <th>Submitted On</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
 <?php
-
 unset($_SESSION['success']);
 unset($_SESSION['error']);
 unset($_SESSION['teamName']);
 include 'inc/footer.php';
-
 ?>

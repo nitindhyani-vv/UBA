@@ -30,7 +30,7 @@ installedmodules = {}
 def is_executable(path):
     return (os.stat(path)[ST_MODE] & (S_IXUSR | S_IXGRP | S_IXOTH)) != 0
 
-def listmodules(arg, dirname, names):	
+def listmodules(dirname, names):
     has_init_py = '__init__.py' in names
     if has_init_py:
         for p in sys_path:
@@ -41,7 +41,7 @@ def listmodules(arg, dirname, names):
             dirname = dirname[1:]
         if dirname[:4] == 'test':
             return
-        dirname = string.replace(dirname, "/", ".")
+        dirname = dirname.replace("/", ".")
         if dirname != '':
             installedmodules[dirname] = None
         
@@ -62,7 +62,7 @@ def listmodules(arg, dirname, names):
             installedmodules[mod] = None
 
 
-print "Content-Type: text/html; charset=ISO-8859-1\n"
+print("Content-Type: text/html; charset=ISO-8859-1\n")
 
 try:
     lang = '0'
@@ -78,27 +78,27 @@ try:
         css = lang2css['0']
 
 
-    print '''<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    print('''<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Python Configuration</title>
 <style type="text/css">
 <!--
-'''
+''')
 
-    print css
+    print(css)
 
-    print '''
+    print('''
 -->
 </style>
 </head>
 
 <body bgcolor="#ffffff">
 <h1 style="text-align: center">Python Configuration</h1>
-'''
+''')
 
     sys_path = sys.path[1:]
-    sys_path.sort(lambda a, b: cmp(len(b), len(a)))
+    sys_path.sort(key=lambda a: len(a))
 
     for i in list(sys.builtin_module_names):
         installedmodules[i] = None
@@ -106,79 +106,76 @@ try:
     libdirs = sys.path
     libdirs.sort()
     for dir in libdirs:
-        os.path.walk(dir, listmodules, None)
+        for root, dirs, files in os.walk(dir):
+            listmodules(root, files)
 
-    installedmodules = installedmodules.keys()
+    installedmodules = list(installedmodules.keys())
     installedmodules.sort()
     for i in range(len(installedmodules) % 3):
         installedmodules.append('')
 
     py = {}
-    py["version"] = string.split(sys.version)[0]
+    py["version"] = sys.version.split()[0]
     py["platform"]= sys.platform
 
-    location = string.split(os.popen("whereis python", "r").read())
-    location = filter(lambda p: p[0] == '/', location)
-    location.sort()
+    location = sorted(filter(lambda x: x[0]=='/', os.popen("whereis python", "r").read().split()))
     for i in range(len(location)):
         if os.path.islink(location[i]):
             location[i] = location[i] + " -> " + os.readlink(location[i])
 
-    py["location"] = string.join(location, "<br>\n")
+    py["location"] = "<br>\n".join(location)
 
-    location = string.split(os.popen("whereis sendmail", "r").read())
-    location = filter(lambda p: p[0] == '/', location)
-    location.sort()
-    location = filter(is_executable, location)
+    location = sorted(filter(lambda x: x[0]=='/', os.popen("whereis sendmail", "r").read().split()))
+    location = list(filter(is_executable, location))
     for i in range(len(location)):
         if os.path.islink(location[i]):
             location[i] = location[i] + " -> " + os.readlink(location[i])
     
-    py["sendmail"] = string.join(location, "<br>\n")
+    py["sendmail"] = "<br>\n".join(location)
 
     libdirs = sys.path
     if libdirs[0] == '':
         libdirs[0] = './'
 
-    py["libdirs"] = string.join(libdirs, "<br>\n")
+    py["libdirs"] = "<br>\n".join(libdirs)
 
-    print '<table width="100%">'
-    print '''
+    print('<table width="100%">')
+    print('''
     <tr><th colspan="2">Program Paths</th></tr>
     <tr><td class="leftcol"><b>Python version</b></td><td class="rightcol">%(version)s</td></tr>
     <tr><td class="leftcol"><b>Python OS platform</b></td><td class="rightcol">%(platform)s</td></tr>
     <tr><td class="leftcol"><b>Location of Python</b></td><td class="rightcol">%(location)s</td></tr>
     <tr><td class="leftcol"><b>Location of Sendmail</b></td><td class="rightcol">%(sendmail)s</td></tr>
     <tr><td class="leftcol"><b>Directories searched for Python modules</b></td><td class="rightcol">%(libdirs)s</td></tr>
-    ''' % py
-    print "</table>"
+    ''' % py)
+    print("</table>")
 
-    print '''<table width="100%">
+    print('''<table width="100%">
     <tr><th colspan="2">Environment Variables</th></tr>
-    '''
+    ''')
 
-    envvars = os.environ.keys()
+    envvars = list(os.environ.keys())
     envvars.sort()
     for envvar in envvars:
         value = os.environ[envvar]
-        print '<tr><td class="leftcol"><b>%s</b></td><td class="rightcol">%s<td></tr>' % (envvar, value)
-    print "</table>"
+        print('<tr><td class="leftcol"><b>%s</b></td><td class="rightcol">%s<td></tr>' % (envvar, value))
+    print("</table>")
 
-    print '''<table width="100%">
+    print('''<table width="100%">
     <tr><th>Installed Modules</th></tr>
-    <tr><td><pre>'''
+    <tr><td><pre>''')
 
-    rows = len(installedmodules) / 3
+    rows = len(installedmodules) // 3
     mods = [ [], [], [] ]
-    maxlen = max(map(len, installedmodules))
+    maxlen = max(list(map(len, installedmodules)))
 
     for i in range(rows):
         s = "%%-%ds %%-%ds %%s" % (maxlen, maxlen)
-        print s % (installedmodules[i], installedmodules[rows + i], installedmodules[2*rows + i])
+        print(s % (installedmodules[i], installedmodules[rows + i], installedmodules[2*rows + i]))
 
-    print "</pre></td></tr></table></body></html>"
+    print("</pre></td></tr></table></body></html>")
 
 except:
-    tb = traceback.format_exception(sys.exc_type, sys.exc_value, sys.exc_traceback)
-    tb = string.join(tb, "")
-    print '<pre>%s</pre></body></html>' % tb
+    tb = traceback.format_exception(sys.exc_info()[0], sys.exc_info()[1], sys.exc_info()[2])
+    tb = "".join(tb)
+    print('<pre>%s</pre></body></html>' % tb)
